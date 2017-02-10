@@ -70,9 +70,10 @@ def loginAccount():
 @app.route('/webhook', methods=['POST', 'GET'])
 def webhookExp():
     if request.method == 'POST':
-        print(request.json)
+        print ("sample response",request.json)
         return "Hello user"
     elif request.method == 'GET':
-        return "Hello User from custom"
+        print ("Hello User from custom")
+        return "GET method"
     else:
         abort(400)
