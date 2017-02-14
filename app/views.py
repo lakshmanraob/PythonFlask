@@ -72,7 +72,7 @@ def loginAccount():
 @app.route('/webhook', methods=['POST', 'GET'])
 def webhookExp():
     if request.method == 'POST':
-        location = request.json['result']['parameters']['location']
+        location = request.json['result']['parameters']['geo-city']
         if location:
             print("weather condition required for ..", location)
             return processLocation(request)
@@ -114,7 +114,7 @@ def processLocation(req):
 
 
 def makeyqlQuery(req):
-    city = req.json['result']['parameters']['location']
+    city = req.json['result']['parameters']['geo-city']
     if city:
         return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
     else:
