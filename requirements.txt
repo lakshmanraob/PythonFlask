@@ -1,6 +1,4 @@
 Flask
 gunicorn
-urllib.request
-urllib.parse
-urllib.error
+urllib
 json
