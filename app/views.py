@@ -155,7 +155,8 @@ def extractWeather(result):
                 speech = "Today in " + city + ' weather is ' + forecast['text'] + ' with temperature of ' + forecast[
                     'temp'] + units
                 # return jsonify({'status': 'success', 'message': parsed_json[10]}), 200
-                return jsonify({'speech': speech, 'displayText': speech}), 200
+                return jsonify(
+                    {'speech': speech, 'displayText': speech, 'source': 'lakshman weather support from yahoo'}), 200
             else:
                 return processErrorrequest(206, "fail in channel")
         else:
