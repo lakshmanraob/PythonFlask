@@ -78,12 +78,6 @@ def webhookExp():
             return processLocation(request)
         else:
             print("actual json file", request.json)
-            # parsed_json = json.dumps(request.json)
-            # if parsed_json:
-            #     return jsonify({'status': 'success', 'message': parsed_json[10]}), 200
-            # else:
-            #     print("sample response", parsed_json)
-            #     return jsonify({'status': 'success'}), 200
     elif request.method == 'GET':
         return processGetrequest(request)
     else:
@@ -99,18 +93,22 @@ def processLocation(req):
     if req.json["result"]['action'] != 'weather.search':
         return {}
     else:
-        baseurl = "https://query.yahooapis.com/v1/public/yql?"
-        yql_query = makeyqlQuery(req)
-        if yql_query:
-            yql_query = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
-            result = urllib.request.urlopen(yql_query).read().decode('utf-8')
-            if result:
-                data = json.loads(result)
-                return extractWeather(data)
-            else:
-                return processErrorrequest(result.getcode())
+        return processWeatherSearch(req)
+
+
+def processWeatherSearch(req):
+    baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    yql_query = makeyqlQuery(req)
+    if yql_query:
+        yql_query = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
+        result = urllib.request.urlopen(yql_query).read().decode('utf-8')
+        if result:
+            data = json.loads(result)
+            return extractWeather(data)
         else:
-            return processErrorrequest(206)
+            return processErrorrequest(result.getcode())
+    else:
+        return processErrorrequest(206)
 
 
 def makeyqlQuery(req):
