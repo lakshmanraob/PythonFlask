@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, redirect, url_for, request, abort, jsonify
 import json
 import urllib.request, urllib.parse, urllib.error
+from app.static import myfirebasemodule
 
 
 @app.route('/')
@@ -23,6 +24,8 @@ def index():
             'body': 'Quality Assurance'
         }
     ]
+    myfirebase = myfirebasemodule.myfirebase()
+    myfirebase.accessFirebase()
 
     return render_template('index.html', posts=posts, user=user)
 
