@@ -74,26 +74,46 @@ def loginAccount():
 
 @app.route('/webhook', methods=['POST', 'GET'])
 def webhookExp():
-    climateaction = climatemodule.climateaction()
-    if request.method == 'POST':
-        location = climateaction.getLocation(req=request)
-        if location:
-            print("weather condition required for ..", location)
-            return climateaction.processAction(request)
+    webhookaction = getActionFromWebhook(request=request)
+    if webhookaction in ['weather.action', 'wind.action']:
+        climateaction = climatemodule.climateaction()
+        if request.method == 'POST':
+            location = climateaction.getLocation(req=request)
+            if location:
+                print("weather condition required for ..", location)
+                return climateaction.processAction(request)
+            else:
+                print("actual json file", request.json)
+        elif request.method == 'GET':
+            return climateaction.processGetrequest(request)
         else:
-            print("actual json file", request.json)
-    elif request.method == 'GET':
-        return climateaction.processGetrequest(request)
+            abort(400)
+    elif webhookaction == 'firebase.action':
+        return processFirebaseRequests(request=request)
     else:
         abort(400)
 
 
 @app.route('/firebase', methods=['POST', 'GET'])
 def firebaseapp():
+    return processFirebaseRequests(request=request)
+
+
+def getActionFromWebhook(request):
+    return request.json["result"]["action"]
+
+
+def processFirebaseRequests(request):
     firebaseapp = myfirebasemodule.myfirebase()
     if request.method == 'POST':
-        print("POST method")
-        return "POST method"
+        action = request.json["result"]["action"]
+        username = request.json["result"]["parameters"]["username"]
+        password = request.json["result"]["parameters"]["password"]
+        if username == None:
+            username = request.form('username')
+        if password == None:
+            password = request.form('password')
+        return firebaseapp.loginFirebase(email=username, password=password)
     else:
         print("GET Method ", request.args.get("nm"))
         # method = "GET Method " + request.args.get("nm")
@@ -101,3 +121,7 @@ def firebaseapp():
         password = request.args.get("password")
         print("username" + username + ",password." + password)
         return firebaseapp.createUser(username=username, password=password)
+
+
+def getProperty(request, attributeName):
+    return request.json["result"][attributeName]

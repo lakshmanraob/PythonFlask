@@ -16,22 +16,39 @@ class myfirebase:
         self.auth = self.firebase.auth()
 
     # accessing the Firebase with given username and password
+    '''If the user given the login id which is not registered, then will automatically
+    routed to create user'''
+
     def loginFirebase(self, email, password):
-        user = self.auth.sign_in_with_email_and_password(email=email, password=password)
-        print(user)
-        return jsonify({'status': 'login', 'responsecode': '200', 'user': user})
+        try:
+            user = self.auth.sign_in_with_email_and_password(email=email, password=password)
+            return jsonify({'status': 'newuser', 'responsecode': '200', 'user': user})
+        except HTTPError as e:
+            errorJson = json.loads(e.strerror)
+            if errorJson['error']['code'] == 400:
+                if errorJson['error']['message'] == 'EMAIL_NOT_FOUND':
+                    return self.createUser(email=email, password=password)
+                elif errorJson['error']['message'] == 'INVALID_PASSWORD':
+                    return jsonify({'status': 'Invalid password!, please enter the password',
+                                    'responsecode': errorJson['error']['code']})
+                else:
+                    return jsonify({'status': errorJson['error']['message'],
+                                    'responsecode': errorJson['error']['code']})
+            else:
+                return jsonify({'status': errorJson['error']['message'],
+                                'responsecode': errorJson['error']['code']})
 
     # creating the user with given username and password
-    def createUser(self, username, password):
+    def createUser(self, email, password):
         print("creating the new user")
         try:
-            user = self.auth.create_user_with_email_and_password(email=username, password=password)
+            user = self.auth.create_user_with_email_and_password(email=email, password=password)
             return jsonify({'status': 'newuser', 'responsecode': '200', 'user': user})
         except HTTPError as e:
             errorJson = json.loads(e.strerror)
             if errorJson['error']['code'] == 400:
                 if errorJson['error']['message'] == 'EMAIL_EXISTS':
-                    return self.loginFirebase(email=username, password=password)
+                    return self.loginFirebase(email=email, password=password)
                 else:
                     return jsonify({'status': errorJson['error']['message'],
                                     'responsecode': errorJson['error']['code']})
