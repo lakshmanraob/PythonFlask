@@ -86,3 +86,18 @@ def webhookExp():
         return climateaction.processGetrequest(request)
     else:
         abort(400)
+
+
+@app.route('/firebase', methods=['POST', 'GET'])
+def firebaseapp():
+    firebaseapp = myfirebasemodule.myfirebase()
+    if request.method == 'POST':
+        print("POST method")
+        return "POST method"
+    else:
+        print("GET Method ", request.args.get("nm"))
+        # method = "GET Method " + request.args.get("nm")
+        username = request.args.get("username")
+        password = request.args.get("password")
+        print("username" + username + ",password." + password)
+        return firebaseapp.createUser(username=username, password=password)

@@ -2,7 +2,6 @@ import json
 import urllib.request, urllib.parse, urllib.error
 from flask import jsonify
 
-
 class climateaction:
     # extract location
     def getLocation(self, req):
