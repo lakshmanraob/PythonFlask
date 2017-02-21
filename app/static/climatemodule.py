@@ -2,6 +2,7 @@ import json
 import urllib.request, urllib.parse, urllib.error
 from flask import jsonify
 
+
 class climateaction:
     # extract location
     def getLocation(self, req):
@@ -23,7 +24,8 @@ class climateaction:
     # Processing the location to get the Weather for the extracted location
     def processAction(self, req):
         if req.json["result"]["action"] in ['weather.search', 'wind.search']:
-            return self.processWeatherSearch(req, action=req.json["result"]["action"])
+            action = req.json["result"]["action"]
+            return self.processWeatherSearch(req=req, action=action)
         elif req.json["result"]['action'] != 'weather.search':
             return {}
         else:
@@ -109,8 +111,8 @@ class climateaction:
                     forecastForFuture = channel['item']['forecast']
                     # attachContextOut = jsonify(
                     #     [{'name': 'weather', 'lifespan': 2, 'parameters': {'city': cityName}}])
-                    for forecast in forecastForFuture:
-                        print(self.processForecast(forecast))
+                    for fore in forecastForFuture:
+                        print(self.processForecast(fore))
                     speech = "Today in " + cityLocation + ' weather is ' + forecastForToday[
                         'text'] + ' with temperature of ' + \
                              forecastForToday[
@@ -125,6 +127,6 @@ class climateaction:
                 return self.processErrorrequest(206, "fail in result")
         return self.processErrorrequest(206, "fail in query")
 
-    def processForecast(forecast):
+    def processForecast(self, forecast):
         return forecast['day'] + "," + forecast['date'] + " highest " + forecast['high'] + " lowest " + forecast[
             'low'] + " " + forecast['text']

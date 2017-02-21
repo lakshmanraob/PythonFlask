@@ -74,7 +74,7 @@ def loginAccount():
 @app.route('/webhook', methods=['POST', 'GET'])
 def webhookExp():
     webhookaction = getActionFromWebhook(request=request)
-    if webhookaction in ['weather.action', 'wind.action']:
+    if webhookaction in ['weather.search', 'wind.search']:
         climateaction = climatemodule.climateaction()
         if request.method == 'POST':
             location = climateaction.getLocation(req=request)
