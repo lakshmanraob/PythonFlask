@@ -4,7 +4,6 @@ from flask import render_template, redirect, url_for, request, abort
 from app.static import myfirebasemodule
 from app.static import climatemodule
 
-
 @app.route('/')
 @app.route('/index')
 def index():
@@ -106,13 +105,13 @@ def getActionFromWebhook(request):
 def processFirebaseRequests(request):
     firebaseapp = myfirebasemodule.myfirebase()
     if request.method == 'POST':
-        action = request.json["result"]["action"]
         username = request.json["result"]["parameters"]["username"]
         password = request.json["result"]["parameters"]["password"]
         if username == None:
             username = request.form('username')
         if password == None:
             password = request.form('password')
+
         return firebaseapp.loginFirebase(email=username, password=password)
     else:
         print("GET Method ", request.args.get("nm"))

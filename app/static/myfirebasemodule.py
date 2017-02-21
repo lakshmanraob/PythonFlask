@@ -22,7 +22,7 @@ class myfirebase:
     def loginFirebase(self, email, password):
         try:
             user = self.auth.sign_in_with_email_and_password(email=email, password=password)
-            return jsonify({'status': 'newuser', 'responsecode': '200', 'user': user})
+            return jsonify({'status': 'login', 'responsecode': '200', 'user': user})
         except HTTPError as e:
             errorJson = json.loads(e.strerror)
             if errorJson['error']['code'] == 400:
