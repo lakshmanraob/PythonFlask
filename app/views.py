@@ -118,7 +118,7 @@ def processFirebaseRequests(request):
         result = json.loads(loginInfo)
         # here we are not sending the User object as response
         return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
-                             contextOut=result['user'],
+                             contextOut=None,
                              responseCode=result['responsecode'])
     else:
         print("GET Method ", request.args.get("nm"))
