@@ -108,6 +108,7 @@ def getActionFromWebhook(request):
 def processFirebaseRequests(request):
     firebaseapp = myfirebasemodule.myfirebase()
     if request.method == 'POST':
+        print(request.json)
         username = request.json["result"]["parameters"]["username"]
         password = request.json["result"]["parameters"]["password"]
         if username == None:
