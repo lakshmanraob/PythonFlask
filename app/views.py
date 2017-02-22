@@ -118,7 +118,7 @@ def processFirebaseRequests(request):
         result = json.loads(loginInfo)
         # here we are not sending the User object as response
         return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
-                             contextOut=None,
+                             contextOut=result['user'],
                              responseCode=result['responsecode'])
     else:
         print("GET Method ", request.args.get("nm"))
@@ -130,7 +130,7 @@ def processFirebaseRequests(request):
         result = json.loads(createUserInfo)
         # here we are not sending the User object as response
         return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
-                             contextOut=None, responseCode=result['responsecode'])
+                             contextOut=result['user'], responseCode=result['responsecode'])
 
 
 def getProperty(request, attributeName):

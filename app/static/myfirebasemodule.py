@@ -13,6 +13,7 @@ class myfirebase:
         }
         self.firebase = pyrebase.initialize_app(self.config)
         self.auth = self.firebase.auth()
+        self.user = None
 
     # accessing the Firebase with given username and password
     '''If the user given the login id which is not registered, then will automatically
@@ -20,8 +21,8 @@ class myfirebase:
 
     def loginFirebase(self, email, password):
         try:
-            user = self.auth.sign_in_with_email_and_password(email=email, password=password)
-            return json.dumps({'status': 'logged in as ' + email, 'responsecode': '200', 'user': user})
+            self.user = self.auth.sign_in_with_email_and_password(email=email, password=password)
+            return json.dumps({'status': 'logged in as ' + email, 'responsecode': '200', 'user': self.user})
         except HTTPError as e:
             errorJson = json.loads(e.strerror)
             if errorJson['error']['code'] == 400:
@@ -41,8 +42,8 @@ class myfirebase:
     def createUser(self, email, password):
         print("creating the new user")
         try:
-            user = self.auth.create_user_with_email_and_password(email=email, password=password)
-            return json.dumps({'status': 'created a profile for ' + email, 'responsecode': '200', 'user': user})
+            self.user = self.auth.create_user_with_email_and_password(email=email, password=password)
+            return json.dumps({'status': 'created a profile for ' + email, 'responsecode': '200', 'user': self.user})
         except HTTPError as e:
             errorJson = json.loads(e.strerror)
             if errorJson['error']['code'] == 400:
@@ -55,3 +56,7 @@ class myfirebase:
             else:
                 return json.dumps({'status': errorJson['error']['message'],
                                    'responsecode': errorJson['error']['code']})
+
+    # For accessing the Database for getting the particular device/book status
+    def accessDatabase(self):
+        print("User need to access the Database")
