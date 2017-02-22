@@ -3,6 +3,9 @@ from flask import render_template, redirect, url_for, request, abort
 
 from app.static import myfirebasemodule
 from app.static import climatemodule
+import json
+from flask import jsonify
+
 
 @app.route('/')
 @app.route('/index')
@@ -111,16 +114,30 @@ def processFirebaseRequests(request):
             username = request.form('username')
         if password == None:
             password = request.form('password')
-
-        return firebaseapp.loginFirebase(email=username, password=password)
+        loginInfo = firebaseapp.loginFirebase(email=username, password=password)
+        result = json.loads(loginInfo)
+        # here we are not sending the User object as response
+        return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
+                             contextOut=None,
+                             responseCode=result['responsecode'])
     else:
         print("GET Method ", request.args.get("nm"))
         # method = "GET Method " + request.args.get("nm")
         username = request.args.get("username")
         password = request.args.get("password")
         print("username" + username + ",password." + password)
-        return firebaseapp.createUser(username=username, password=password)
+        createUserInfo = firebaseapp.createUser(username=username, password=password)
+        result = json.loads(createUserInfo)
+        # here we are not sending the User object as response
+        return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
+                             contextOut=None, responseCode=result['responsecode'])
 
 
 def getProperty(request, attributeName):
     return request.json["result"][attributeName]
+
+
+def buildResponse(speech, displayText, source, contextOut, responseCode):
+    return jsonify(
+        {'speech': speech, 'displayText': displayText, 'source': source,
+         'contextOut': contextOut}), responseCode
