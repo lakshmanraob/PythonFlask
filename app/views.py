@@ -90,7 +90,7 @@ def webhookExp():
             return climateaction.processGetrequest(request)
         else:
             abort(400)
-    elif webhookaction == 'firebase.action':
+    elif webhookaction in ['firebase.action', 'firebase.status.action']:
         return processFirebaseRequests(request=request)
     else:
         abort(400)
@@ -109,18 +109,32 @@ def processFirebaseRequests(request):
     firebaseapp = myfirebasemodule.myfirebase()
     if request.method == 'POST':
         print(request.json)
+        action = request.json["result"]["action"]
         username = request.json["result"]["parameters"]["username"]
         password = request.json["result"]["parameters"]["password"]
         if username == None:
             username = request.form('username')
         if password == None:
             password = request.form('password')
-        loginInfo = firebaseapp.loginFirebase(email=username, password=password)
-        result = json.loads(loginInfo)
-        # here we are not sending the User object as response
-        return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
-                             contextOut=None,
-                             responseCode=result['responsecode'])
+        if action == 'firebase.action':
+            loginInfo = firebaseapp.loginFirebase(email=username, password=password)
+            result = json.loads(loginInfo)
+            # here we are not sending the User object as response
+            return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
+                                 contextOut=None,
+                                 responseCode=result['responsecode'])
+        elif action == 'firebase.status.action':
+            item = request.json["result"]["parameters"]["deviceorbook"]
+            statusInfo = firebaseapp.accessDatabase(email=username, password=password, item=item)
+            result = json.loads(statusInfo)
+            # here we are not sending the User object as response
+            return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
+                                 contextOut=None,
+                                 responseCode=result['responsecode'])
+        else:
+            str = 'Not able recognize the request'
+            return buildResponse(speech=str, displayText=str, source='laksh webhook', contextOut=None, responseCode=400)
+
     else:
         print("GET Method ", request.args.get("nm"))
         # method = "GET Method " + request.args.get("nm")

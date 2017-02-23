@@ -58,5 +58,18 @@ class myfirebase:
                                    'responsecode': errorJson['error']['code']})
 
     # For accessing the Database for getting the particular device/book status
-    def accessDatabase(self):
-        print("User need to access the Database")
+    def accessDatabase(self, email, password, item):
+        print("User need to access the Database {},{},{}", email, password, item)
+        self.user = self.loginFirebase(email=email, password=password)
+        token = json.loads(self.user)["user"]["idToken"]
+        print(token)
+        db = self.firebase.database()
+        devices = db.child("devices").get(token=token)
+        try:
+            print(devices.val()[item])
+            status = devices.val()[item]['modelState']
+            return json.dumps({'status': ' status of  ' + item + " is " + status, 'responsecode': '200'})
+        except KeyError as e:
+            print(e)
+            return json.dumps(
+                {'status': "looks like " + item + " is not part of our collection", 'responsecode': '200'})
