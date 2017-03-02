@@ -27,7 +27,7 @@ def index():
         }
     ]
     myfirebase = myfirebasemodule.myfirebase()
-    myfirebase.accessFirebase()
+    # myfirebase.accessFirebase()
 
     return render_template('index.html', posts=posts, user=user)
 
