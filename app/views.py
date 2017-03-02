@@ -3,6 +3,9 @@ from flask import render_template, redirect, url_for, request, abort
 
 from app.static import myfirebasemodule
 from app.static import climatemodule
+
+from app.static import gihubmodule
+
 import json
 from flask import jsonify
 
@@ -99,6 +102,13 @@ def webhookExp():
 @app.route('/firebase', methods=['POST', 'GET'])
 def firebaseapp():
     return processFirebaseRequests(request=request)
+
+
+@app.route('/github', methods=['POST', 'GET'])
+def accessGithub():
+    print("git hub access")
+    github = gihubmodule.githubexp()
+    return github.authenticateWithToken()
 
 
 def getActionFromWebhook(request):
