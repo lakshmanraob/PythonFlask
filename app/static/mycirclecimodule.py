@@ -21,3 +21,7 @@ class mycircleclient(object):
         branch = 'dev'
         print(self.client.build.trigger(username=user, project=project, branch=branch))
         return "build triggered"
+
+    def getartifactslist(self, user, project, buildnumber):
+        print(self.client.build.artifacts(username=user, project=project, build_num=buildnumber))
+        return "got the artifacts"

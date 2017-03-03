@@ -126,7 +126,15 @@ def cipostaccept():
     print(request.json["payload"]["outcome"])
     print(request.json["payload"]["username"])
     print(request.json["payload"]["committer_date"])
-    return 'success'
+    if request.json["payload"]["outcome"] == "success":
+        circle = mycirclecimodule.mycircleclient()
+        user = request.json["payload"]["username"]
+        project = request.json["payload"]["reponame"]
+        buildnum = request.json["payload"]["build_num"]
+        circle.getartifactslist(user=user, project=project, buildnumber=buildnum)
+        return 'success'
+    else:
+        return "build failure"
 
 
 def getActionFromWebhook(request):
