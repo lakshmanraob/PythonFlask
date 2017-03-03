@@ -123,7 +123,9 @@ def accesscircleci():
 @app.route('/cipostaccept', methods=['POST', 'GET'])
 def cipostaccept():
     print('this request came')
-    print(request.json)
+    print(request.json["payload"]["outcome"])
+    print(request.json["payload"]["username"])
+    print(request.json["payload"]["committer_date"])
     return 'success'
 
 
