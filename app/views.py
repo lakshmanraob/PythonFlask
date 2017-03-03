@@ -5,6 +5,7 @@ from app.static import myfirebasemodule
 from app.static import climatemodule
 
 from app.static import gihubmodule
+from app.static import  mycirclecimodule
 
 import json
 from flask import jsonify
@@ -109,6 +110,14 @@ def accessGithub():
     print("git hub access")
     github = gihubmodule.githubexp()
     return github.authenticateWithToken()
+
+
+@app.route('/circleci', methods=['POST', 'GET'])
+def accesscircleci():
+    '''For triggering the build in the circle CI'''
+    print("access circle ci")
+    circle = mycirclecimodule.mycircleclient()
+    return circle.triggerbuild()
 
 
 def getActionFromWebhook(request):
