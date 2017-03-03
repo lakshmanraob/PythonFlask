@@ -123,7 +123,7 @@ def accesscircleci():
 @app.route('/cipostaccept', methods=['POST', 'GET'])
 def cipostaccept():
     print('this request came')
-    print(request)
+    print(request.json)
     return 'success'
 
 
