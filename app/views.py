@@ -6,6 +6,7 @@ from app.static import climatemodule
 
 from app.static import gihubmodule
 from app.static import mycirclecimodule
+from app.static import jiramodule
 
 import json
 from flask import jsonify
@@ -135,6 +136,14 @@ def cipostaccept():
         return 'success'
     else:
         return "build failure"
+
+
+@app.route('/jiraissues', methods=['POST', 'GET'])
+def getJiraIssues():
+    jiraclient = jiramodule.myjiraclient()
+    # for jiraIssue in jiraclient.getCurrentUserIssues(maxResults=10):
+    #     print(jiraclient.getIssuedetails(jiraIssue).fields.summary)
+    return jiraclient.getCurrentUserIssues(maxResults=10)
 
 
 def getActionFromWebhook(request):
