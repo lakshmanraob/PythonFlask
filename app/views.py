@@ -157,6 +157,10 @@ def handlebuildDetails():
         return accessGithub()
     elif buildaction == 'jiradetails.action':
         return getJiraIssues()
+    elif buildaction == 'ci.action':
+        return accesscircleci()
+    elif request.json["payload"]:
+        cipostaccept()
     return buildaction
 
 
