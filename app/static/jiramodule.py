@@ -1,4 +1,5 @@
 from jira import JIRA
+import json
 
 from app.static.models import jiramodelsmodule
 
@@ -25,11 +26,16 @@ class myjiraclient(object):
         jiraissues = self.jira.search_issues('assignee = currentUser() order by priority desc', maxResults=maxResults,
                                              json_result=True)
 
+        jiraissueslist = []
+        # jiraissueslist.append(jiraissues)
         for jiraissue in jiraissues['issues']:
-            jissue = jiramodelsmodule.jiraissue(jiraissue)
-            print(jissue)
+            issue = jiraissue['key'] + " : " + jiraissue['fields']['summary'] + " - " + jiraissue['fields']['status'][
+                'name']
+            # print(jiraissue['key'])
+            # print(jiraissue['fields']['summary'])
+            jiraissueslist.append(issue)
 
-        return "success"
+        return json.dumps(jiraissueslist)
 
     def getIssuedetails(self, issue):
         '''Give the details aboot the jira issue'''

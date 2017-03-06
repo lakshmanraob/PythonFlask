@@ -145,7 +145,9 @@ def getJiraIssues():
     jiraclient = jiramodule.myjiraclient()
     # for jiraIssue in jiraclient.getCurrentUserIssues(maxResults=10):
     #     print(jiraclient.getIssuedetails(jiraIssue).fields.summary)
-    return jiraclient.getCurrentUserIssues(maxResults=10)
+    results = jiraclient.getCurrentUserIssues(maxResults=10)
+    return buildResponse(speech=results, displayText=results, contextOut=None, source="lakshman web hook",
+                         responseCode=200)
 
 
 @app.route('/buildhook', methods=['POST', 'GET'])
@@ -153,6 +155,8 @@ def handlebuildDetails():
     buildaction = getActionFromWebhook(request=request)
     if buildaction == "gitdetails.action":
         return accessGithub()
+    elif buildaction == 'jiradetails.action':
+        return getJiraIssues()
     return buildaction
 
 
