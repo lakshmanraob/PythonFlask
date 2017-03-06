@@ -120,7 +120,10 @@ def accesscircleci():
     '''For triggering the build in the circle CI'''
     print("access circle ci")
     circle = mycirclecimodule.mycircleclient()
-    return circle.triggerbuild()
+    triggerBuild = circle.triggerbuild()
+    speech = "build successful"
+    return buildResponse(speech=speech, displayText=speech, source="lakshman web hook", contextOut=None,
+                         responseCode=200)
 
 
 @app.route('/cipostaccept', methods=['POST', 'GET'])
@@ -139,9 +142,13 @@ def cipostaccept():
         for arti in artifacts:
             str = arti['url']
             artifactsList.append(str)
-        return json.dumps(artifactsList)
+        return buildResponse(speech=artifactsList, displayText=artifactsList, source="lakshman webhook",
+                             contextOut=None, responseCode=200)
+        # return json.dumps(artifactsList)
     else:
-        return json.dumps({'status': 'fail to get the artifacts'})
+        speech = "fail to get the artifacts"
+        return buildResponse(speech=speech, displayText=speech, source="lakshman webhook",
+                             contextOut=None, responseCode=400)
 
 
 @app.route('/jiraissues', methods=['POST', 'GET'])
