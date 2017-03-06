@@ -2,3 +2,4 @@ Flask
 gunicorn
 pyrebase
 circleclient
+jira

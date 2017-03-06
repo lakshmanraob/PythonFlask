@@ -1,5 +1,7 @@
 from jira import JIRA
 
+from app.static.models import jiramodelsmodule
+
 
 class myjiraclient(object):
     def __init__(self):
@@ -17,9 +19,17 @@ class myjiraclient(object):
 
     def getCurrentUserIssues(self, maxResults):
         ''' oh_crap = jira.search_issues('assignee = currentUser() and due < endOfWeek() order by priority desc', maxResults=5)'''
-        print(self.jira.search_issues('assignee = currentUser() order by priority desc', maxResults=maxResults,
-                                      json_result=True))
-        return "Success"
+        # print(self.jira.search_issues('assignee = currentUser() order by priority desc', maxResults=maxResults,
+        #                               json_result=True))
+
+        jiraissues = self.jira.search_issues('assignee = currentUser() order by priority desc', maxResults=maxResults,
+                                             json_result=True)
+
+        for jiraissue in jiraissues['issues']:
+            jissue = jiramodelsmodule.jiraissue(jiraissue)
+            print(jissue)
+
+        return "success"
 
     def getIssuedetails(self, issue):
         '''Give the details aboot the jira issue'''

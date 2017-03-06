@@ -110,7 +110,9 @@ def firebaseapp():
 def accessGithub():
     print("git hub access")
     github = gihubmodule.githubexp()
-    return github.authenticateWithToken()
+    # return github.authenticateWithToken()
+    results = github.getcommitsforDev(maxresults=10)
+    return processGitCommitDetails(results)
 
 
 @app.route('/circleci', methods=['POST', 'GET'])
@@ -144,6 +146,12 @@ def getJiraIssues():
     # for jiraIssue in jiraclient.getCurrentUserIssues(maxResults=10):
     #     print(jiraclient.getIssuedetails(jiraIssue).fields.summary)
     return jiraclient.getCurrentUserIssues(maxResults=10)
+
+
+@app.route('/buildhook', methods=['POST', 'GET'])
+def handlebuildDetails():
+    buildaction = getActionFromWebhook(request=request)
+    return buildaction
 
 
 def getActionFromWebhook(request):
@@ -191,6 +199,12 @@ def processFirebaseRequests(request):
         # here we are not sending the User object as response
         return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
                              contextOut=result['user'], responseCode=result['responsecode'])
+
+
+def processGitCommitDetails(jsonresult):
+    speech = jsonresult
+    return buildResponse(speech=speech, displayText=speech, source="lakshman webhook", contextOut=None,
+                         responseCode=200)
 
 
 def getProperty(request, attributeName):

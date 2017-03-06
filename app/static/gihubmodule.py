@@ -6,7 +6,7 @@ from app.static.models import gitmodelsmodule
 
 class githubexp:
     def __init__(self):
-        self.github_token = "48b1d63830d6af7bc12c204b0c24db61ef4cf431"
+        self.github_token = "39be6acd3b9fb23bcd2d6ab343633ffd56ccedb9"
         self.base_url = "https://api.github.com"
         self.git_urls = None
 
@@ -68,3 +68,21 @@ class githubexp:
         print(r.content)
         print("-----------------")
         return r.content
+
+    def getcommitsforDev(self, maxresults):
+        '''/repos/:owner/:repo/commits?sha=branchname'''
+        token = "token " + self.github_token
+        headers = {"Authorization": token}
+        owner = 'lakshmanraob'
+        reponame = 'MyFireBaseProject'
+        branchname = 'dev'
+        commit_details = []
+        commits_url = branches_url = self.base_url + "/repos/" + owner + "/" + reponame + "/commits?sha=" + branchname
+        r = requests.get(commits_url, headers=headers)
+        # reposList = json.loads(r.content.decode("utf-8"))
+        # return reposList[0]
+        content = json.loads(r.content.decode('utf-8'))
+        for commit in content:
+            if len(commit_details) <= maxresults:
+                commit_details.append(commit['commit']['message'] + " - " + commit['commit']['committer']['name'])
+        return json.dumps(commit_details)
