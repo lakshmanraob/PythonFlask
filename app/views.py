@@ -116,7 +116,7 @@ def accessGithub():
 
 
 @app.route('/circleci', methods=['POST', 'GET'])
-def accesscircleci():
+def accesscircleci(sessionId):
     '''For triggering the build in the circle CI'''
     print("access circle ci")
     circle = mycirclecimodule.mycircleclient()
@@ -173,7 +173,8 @@ def handlebuildDetails():
         elif buildaction == 'jiradetails.action':
             return getJiraIssues()
         elif buildaction == 'ci.action':
-            return accesscircleci()
+            sessionId = request.json["sessionId"]
+            return accesscircleci(sessionId)
         return buildaction
 
 
