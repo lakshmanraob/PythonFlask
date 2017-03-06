@@ -134,10 +134,14 @@ def cipostaccept():
         user = request.json["payload"]["username"]
         project = request.json["payload"]["reponame"]
         buildnum = request.json["payload"]["build_num"]
-        circle.getartifactslist(user=user, project=project, buildnumber=buildnum)
-        return 'success'
+        artifacts = circle.getartifactslist(user=user, project=project, buildnumber=buildnum)
+        artifactsList = []
+        for arti in artifacts:
+            str = arti['url']
+            artifactsList.append(str)
+        return json.dumps(artifactsList)
     else:
-        return "build failure"
+        return json.dumps({'status': 'fail to get the artifacts'})
 
 
 @app.route('/jiraissues', methods=['POST', 'GET'])
@@ -154,7 +158,7 @@ def getJiraIssues():
 def handlebuildDetails():
     try:
         if request.json["payload"]:
-            cipostaccept()
+            return cipostaccept()
     except KeyError as e:
         buildaction = getActionFromWebhook(request=request)
         if buildaction == "gitdetails.action":
