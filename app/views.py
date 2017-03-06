@@ -152,16 +152,18 @@ def getJiraIssues():
 
 @app.route('/buildhook', methods=['POST', 'GET'])
 def handlebuildDetails():
-    buildaction = getActionFromWebhook(request=request)
-    if buildaction == "gitdetails.action":
-        return accessGithub()
-    elif buildaction == 'jiradetails.action':
-        return getJiraIssues()
-    elif buildaction == 'ci.action':
-        return accesscircleci()
-    elif request.json["payload"]:
-        cipostaccept()
-    return buildaction
+    try:
+        if request.json["payload"]:
+            cipostaccept()
+    except KeyError as e:
+        buildaction = getActionFromWebhook(request=request)
+        if buildaction == "gitdetails.action":
+            return accessGithub()
+        elif buildaction == 'jiradetails.action':
+            return getJiraIssues()
+        elif buildaction == 'ci.action':
+            return accesscircleci()
+        return buildaction
 
 
 def getActionFromWebhook(request):
