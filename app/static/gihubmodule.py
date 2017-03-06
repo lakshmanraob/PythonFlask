@@ -78,7 +78,7 @@ class githubexp:
         branchname = 'dev'
         commit_details = []
         commits_url = branches_url = self.base_url + "/repos/" + owner + "/" + reponame + "/commits?sha=" + branchname
-        r = requests.get(commits_url, headers=headers)
+        r = requests.get(commits_url, auth=('lakshmanraob@gmail.com', 'laksh2682'))
         # reposList = json.loads(r.content.decode("utf-8"))
         # return reposList[0]
         content = json.loads(r.content.decode('utf-8'))

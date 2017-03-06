@@ -151,6 +151,8 @@ def getJiraIssues():
 @app.route('/buildhook', methods=['POST', 'GET'])
 def handlebuildDetails():
     buildaction = getActionFromWebhook(request=request)
+    if buildaction == "gitdetails.action":
+        return accessGithub()
     return buildaction
 
 
