@@ -122,7 +122,7 @@ def accesscircleci(sessionId):
     print("access circle ci")
     circle = mycirclecimodule.mycircleclient()
     triggerBuild = circle.triggerbuild()
-    speech = "build successful"
+    speech = "build intiated.."
     return buildResponse(speech=speech, displayText=speech, source="lakshman web hook", contextOut=None,
                          responseCode=200)
 
