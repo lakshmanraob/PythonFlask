@@ -112,6 +112,7 @@ def accessGithub():
     github = gihubmodule.githubexp()
     # return github.authenticateWithToken()
     results = github.getcommitsforDev(maxresults=10)
+    print(results)
     return processGitCommitDetails(results)
 
 
@@ -227,15 +228,33 @@ def processFirebaseRequests(request):
 
 def processGitCommitDetails(jsonresult):
     speech = jsonresult
-    return buildResponse(speech=speech, displayText=speech, source="lakshman webhook", contextOut=None,
-                         responseCode=200)
+    # for sp in speech:
+    #     print(sp)
+    # return buildResponse(speech=speech, displayText=speech, source="lakshman webhook", contextOut=None,
+    #                      responseCode=200)
+
+    return buildGitResponse(speech=None, displayText=None, source=None, contextOut=None, responseCode=200)
 
 
 def getProperty(request, attributeName):
     return request.json["result"][attributeName]
 
 
+def buildGitResponse(speech, displayText, source, contextOut, responseCode):
+    messages = '[{"type":0,"speech":"message1"},{"type":0,"speech":"message2"},{"type":0,"speech":"message3"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
+    # return jsonify(
+    #     {'speech': speech, 'displayText': displayText, 'source': source,
+    #      'contextOut': contextOut, 'message': messages}), responseCode
+    return jsonify(
+        {'speech': "speech", 'displayText': "displaytext", 'source': "lakshman",
+         'contextOut': None, 'message': messages}), responseCode
+
+
 def buildResponse(speech, displayText, source, contextOut, responseCode):
+    messages = '[{"type":0,"speech":"build server not able to serve your request"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
+    # return jsonify(
+    #     {'speech': speech, 'displayText': displayText, 'source': source,
+    #      'contextOut': contextOut, 'message': messages}), responseCode
     return jsonify(
         {'speech': speech, 'displayText': displayText, 'source': source,
          'contextOut': contextOut}), responseCode
