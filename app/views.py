@@ -230,10 +230,10 @@ def processGitCommitDetails(jsonresult):
     speech = jsonresult
     # for sp in speech:
     #     print(sp)
-    # return buildResponse(speech=speech, displayText=speech, source="lakshman webhook", contextOut=None,
-    #                      responseCode=200)
+    return buildResponse(speech=speech, displayText=speech, source="lakshman webhook", contextOut=None,
+                         responseCode=200)
 
-    return buildGitResponse(speech=None, displayText=None, source=None, contextOut=None, responseCode=200)
+    # return buildGitResponse(speech=None, displayText=None, source=None, contextOut=None, responseCode=200)
 
 
 def getProperty(request, attributeName):
