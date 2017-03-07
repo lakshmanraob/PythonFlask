@@ -84,5 +84,6 @@ class githubexp:
         content = json.loads(r.content.decode('utf-8'))
         for commit in content:
             if len(commit_details) <= maxresults:
-                commit_details.append(commit['commit']['message'] + " - " + commit['commit']['committer']['name'])
+                commit_details.append(
+                    commit['commit']['message'] + " - " + commit['commit']['committer']['name']).append('/n')
         return json.dumps(commit_details)
