@@ -164,8 +164,10 @@ def getJiraIssues():
 
 @app.route('/buildhook', methods=['POST', 'GET'])
 def handlebuildDetails():
+    sessionId = "sessionId"
     try:
         if request.json["payload"]:
+            print(sessionId)
             return cipostaccept()
     except KeyError as e:
         buildaction = getActionFromWebhook(request=request)
