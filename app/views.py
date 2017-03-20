@@ -11,6 +11,8 @@ from app.static import jiramodule
 import json
 from flask import jsonify
 
+sessionId = "sessionId"
+
 
 @app.route('/')
 @app.route('/index')
@@ -130,6 +132,7 @@ def accesscircleci(sessionId):
 @app.route('/cipostaccept', methods=['POST', 'GET'])
 def cipostaccept():
     print('this request came')
+    print(sessionId)
     print(request.json["payload"]["outcome"])
     print(request.json["payload"]["username"])
     print(request.json["payload"]["committer_date"])
@@ -164,7 +167,6 @@ def getJiraIssues():
 
 @app.route('/buildhook', methods=['POST', 'GET'])
 def handlebuildDetails():
-    sessionId = "sessionId"
     try:
         if request.json["payload"]:
             print(sessionId)
@@ -176,6 +178,7 @@ def handlebuildDetails():
         elif buildaction == 'jiradetails.action':
             return getJiraIssues()
         elif buildaction == 'ci.action':
+            global sessionId
             sessionId = request.json["sessionId"]
             return accesscircleci(sessionId)
         return buildaction
