@@ -12,6 +12,12 @@ import json
 from flask import jsonify
 
 sessionId = "sessionId"
+apiKey = 'd659ec8acdd44141b7c7edddc555618a'
+''''
+curl -X POST -H "Content-Type: application/json; charset=utf-8"
+-H "Authorization: Bearer YOUR_CLIENT_ACCESS_TOKEN" --data
+"{'event':{ 'name': 'custom_event', 'data': {'name': 'Sam'}},
+'timezone':'America/New_York', 'lang':'en', 'sessionId':'1321321'}" "https://api.api.ai/api/query?v=20150910"'''
 
 
 @app.route('/')
@@ -136,18 +142,26 @@ def cipostaccept():
     print(request.json["payload"]["outcome"])
     print(request.json["payload"]["username"])
     print(request.json["payload"]["committer_date"])
+    apiUrl = 'https://api.api.ai/api/query?v=20150910'
+    headers = {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': 'Bearer %s' % apiKey,
+    }
+
     if request.json["payload"]["outcome"] == "success":
         circle = mycirclecimodule.mycircleclient()
         user = request.json["payload"]["username"]
         project = request.json["payload"]["reponame"]
         buildnum = request.json["payload"]["build_num"]
+        data = '{\'event\':{ \'name\': \'buildresponse\', \'data\': {\'result\': \'success\'}}, \'timezone\':\'America/New_York\', \'lang\':\'en\', \'sessionId\':\'%s\'}' % sessionId
         artifacts = circle.getartifactslist(user=user, project=project, buildnumber=buildnum)
         artifactsList = []
         for arti in artifacts:
             str = arti['url']
             artifactsList.append(str)
-        return buildResponse(speech=artifactsList, displayText=artifactsList, source="lakshman webhook",
-                             contextOut=None, responseCode=200)
+        return request.post('https://api.api.ai/api/query?v=20150910', headers=headers, data=data)
+        # return buildResponse(speech=artifactsList, displayText=artifactsList, source="lakshman webhook",
+        #                      contextOut=None, responseCode=200)
         # return json.dumps(artifactsList)
     else:
         speech = "fail to get the artifacts"
