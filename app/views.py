@@ -9,6 +9,7 @@ from app.static import mycirclecimodule
 from app.static import jiramodule
 
 import json
+import requests
 from flask import jsonify
 
 sessionId = "sessionId"
@@ -188,7 +189,7 @@ def cipostaccept():
         for arti in artifacts:
             str = arti['url']
             artifactsList.append(str)
-        return request.post('https://api.api.ai/api/query?v=20150910', headers=headers, data=data)
+        return requests.post('https://api.api.ai/api/query?v=20150910', headers=headers, data=data)
         # return buildResponse(speech=artifactsList, displayText=artifactsList, source="lakshman webhook",
         #                      contextOut=None, responseCode=200)
         # return json.dumps(artifactsList)
