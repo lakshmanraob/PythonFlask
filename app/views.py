@@ -135,6 +135,35 @@ def accesscircleci(sessionId):
                          responseCode=200)
 
 
+@app.route('/jiraissues', methods=['POST', 'GET'])
+def getJiraIssues():
+    jiraclient = jiramodule.myjiraclient()
+    # for jiraIssue in jiraclient.getCurrentUserIssues(maxResults=10):
+    #     print(jiraclient.getIssuedetails(jiraIssue).fields.summary)
+    results = jiraclient.getCurrentUserIssues(maxResults=10)
+    return buildResponse(speech=results, displayText=results, contextOut=None, source="lakshman web hook",
+                         responseCode=200)
+
+
+@app.route('/buildhook', methods=['POST', 'GET'])
+def handlebuildDetails():
+    global sessionId
+    try:
+        if request.json["payload"]:
+            print(sessionId)
+            return cipostaccept()
+    except KeyError as e:
+        buildaction = getActionFromWebhook(request=request)
+        if buildaction == "gitdetails.action":
+            return accessGithub()
+        elif buildaction == 'jiradetails.action':
+            return getJiraIssues()
+        elif buildaction == 'ci.action':
+            sessionId = request.json["sessionId"]
+            return accesscircleci(sessionId)
+        return buildaction
+
+
 @app.route('/cipostaccept', methods=['POST', 'GET'])
 def cipostaccept():
     print('this request came')
@@ -167,35 +196,6 @@ def cipostaccept():
         speech = "fail to get the artifacts"
         return buildResponse(speech=speech, displayText=speech, source="lakshman webhook",
                              contextOut=None, responseCode=400)
-
-
-@app.route('/jiraissues', methods=['POST', 'GET'])
-def getJiraIssues():
-    jiraclient = jiramodule.myjiraclient()
-    # for jiraIssue in jiraclient.getCurrentUserIssues(maxResults=10):
-    #     print(jiraclient.getIssuedetails(jiraIssue).fields.summary)
-    results = jiraclient.getCurrentUserIssues(maxResults=10)
-    return buildResponse(speech=results, displayText=results, contextOut=None, source="lakshman web hook",
-                         responseCode=200)
-
-
-@app.route('/buildhook', methods=['POST', 'GET'])
-def handlebuildDetails():
-    try:
-        if request.json["payload"]:
-            print(sessionId)
-            return cipostaccept()
-    except KeyError as e:
-        buildaction = getActionFromWebhook(request=request)
-        if buildaction == "gitdetails.action":
-            return accessGithub()
-        elif buildaction == 'jiradetails.action':
-            return getJiraIssues()
-        elif buildaction == 'ci.action':
-            global sessionId
-            sessionId = request.json["sessionId"]
-            return accesscircleci(sessionId)
-        return buildaction
 
 
 def getActionFromWebhook(request):
