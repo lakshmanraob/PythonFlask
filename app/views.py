@@ -12,7 +12,7 @@ import json
 import requests
 from flask import jsonify
 
-sessionId = "sessionId"
+global sessionId
 apiKey = 'd659ec8acdd44141b7c7edddc555618a'
 ''''
 curl -X POST -H "Content-Type: application/json; charset=utf-8"
@@ -148,10 +148,8 @@ def getJiraIssues():
 
 @app.route('/buildhook', methods=['POST', 'GET'])
 def handlebuildDetails():
-    global sessionId
     try:
         if request.json["payload"]:
-            print(sessionId)
             return cipostaccept()
     except KeyError as e:
         buildaction = getActionFromWebhook(request=request)
@@ -160,6 +158,7 @@ def handlebuildDetails():
         elif buildaction == 'jiradetails.action':
             return getJiraIssues()
         elif buildaction == 'ci.action':
+            global sessionId
             sessionId = request.json["sessionId"]
             return accesscircleci(sessionId)
         return buildaction
