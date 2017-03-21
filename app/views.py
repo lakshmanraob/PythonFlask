@@ -190,7 +190,7 @@ def cipostaccept():
             str = arti['url']
             artifactsList.append(str)
         response = requests.post('https://api.api.ai/api/query?v=20150910', headers=headers, data=data)
-        print(response)
+        print(response.content.decode("utf-8"))
         return "success"
         # return buildResponse(speech=artifactsList, displayText=artifactsList, source="lakshman webhook",
         #                      contextOut=None, responseCode=200)
