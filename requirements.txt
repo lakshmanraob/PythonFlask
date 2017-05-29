@@ -4,3 +4,4 @@ pyrebase
 circleclient
 jira
 pyyaml
+SlackClient
