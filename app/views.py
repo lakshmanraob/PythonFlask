@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, url_for, request, abort
+from flask import render_template, redirect, url_for, request, abort, Response, make_response
 
 from app.static import myfirebasemodule
 from app.static import climatemodule
@@ -7,18 +7,18 @@ from app.static import climatemodule
 from app.static import gihubmodule
 from app.static import mycirclecimodule
 from app.static import jiramodule
+from slackclient import SlackClient
 
 import json
 import requests
 from flask import jsonify
 
+import yaml
+
 global sessionId
 apiKey = 'd659ec8acdd44141b7c7edddc555618a'
-''''
-curl -X POST -H "Content-Type: application/json; charset=utf-8"
--H "Authorization: Bearer YOUR_CLIENT_ACCESS_TOKEN" --data
-"{'event':{ 'name': 'custom_event', 'data': {'name': 'Sam'}},
-'timezone':'America/New_York', 'lang':'en', 'sessionId':'1321321'}" "https://api.api.ai/api/query?v=20150910"'''
+
+SLACK_BOT_TOKEN = 'xoxb-171288352757-tZw7inMlcjqWXTqcSkiu5XdK'
 
 
 @app.route('/')
@@ -161,6 +161,9 @@ def handlebuildDetails():
             global sessionId
             sessionId = request.json["sessionId"]
             return accesscircleci(sessionId)
+        elif buildaction == 'input.welcome':
+            print("This is welcome intent")
+            print(request.json)
         return buildaction
 
 
@@ -183,6 +186,9 @@ def cipostaccept():
         project = request.json["payload"]["reponame"]
         buildnum = request.json["payload"]["build_num"]
         data = '{\'event\':{ \'name\': \'buildresponse\', \'data\': {\'result\': \'success\'}}, \'timezone\':\'America/New_York\', \'lang\':\'en\', \'sessionId\':\'%s\'}' % sessionId
+
+        followupevent = '{ \'name\': \'buildresponse\', \'data\': {\'result\': \'success\'}}'
+        # ', \'timezone\':\'America/New_York\', \'lang\':\'en\', \'sessionId\':\'%s\'}' % sessionId
         artifacts = circle.getartifactslist(user=user, project=project, buildnumber=buildnum)
         artifactsList = []
         for arti in artifacts:
@@ -190,14 +196,22 @@ def cipostaccept():
             artifactsList.append(str)
         response = requests.post('https://api.api.ai/api/query?v=20150910', headers=headers, data=data)
         print(response.content.decode("utf-8"))
-        return "success"
-        # return buildResponse(speech=artifactsList, displayText=artifactsList, source="lakshman webhook",
-        #                      contextOut=None, responseCode=200)
+        # return "success"
+        return buildResponse(speech=artifactsList, displayText=artifactsList, source="lakshman webhook",
+                             contextOut=None, followupevent=followupevent, responseCode=200)
         # return json.dumps(artifactsList)
     else:
         speech = "fail to get the artifacts"
         return buildResponse(speech=speech, displayText=speech, source="lakshman webhook",
                              contextOut=None, responseCode=400)
+
+
+def getApiKeys():
+    with open('config.yml', 'r') as myYmlFile:
+        cfg = yaml.load(myYmlFile)
+
+    for section in cfg:
+        print(section)
 
 
 def getActionFromWebhook(request):
@@ -207,6 +221,7 @@ def getActionFromWebhook(request):
 def processFirebaseRequests(request):
     firebaseapp = myfirebasemodule.myfirebase()
     if request.method == 'POST':
+        print(request)
         print(request.json)
         action = request.json["result"]["action"]
         username = request.json["result"]["parameters"]["username"]
@@ -279,3 +294,63 @@ def buildResponse(speech, displayText, source, contextOut, responseCode):
     return jsonify(
         {'speech': speech, 'displayText': displayText, 'source': source,
          'contextOut': contextOut}), responseCode
+
+
+def buildResponse(speech, displayText, source, contextOut, responseCode, followupevent):
+    return jsonify(
+        {'speech': speech, 'displayText': displayText, 'source': source,
+         'contextOut': contextOut, 'followupEvent': followupevent}), responseCode
+
+
+'''This is for handling the Slack requests'''
+
+
+@app.route("/slack/message_options", methods=["POST"])
+def message_options():
+    # Parse the request payload
+    form_json = json.loads(request.form["payload"])
+
+    menu_options = {
+        "options": [
+            {
+                "text": "Chess",
+                "value": "chess"
+            },
+            {
+                "text": "Global Thermonuclear War",
+                "value": "war"
+            }
+        ]
+    }
+
+    return Response(json.dumps(menu_options), mimetype='application/json')
+
+
+@app.route("/slack/message_actions", methods=["POST"])
+def message_actions():
+    print("Are we getting the request here")
+    # Parse the request payload
+    form_json = json.loads(request.form["payload"])
+
+    # Check to see what the user's selection was and update the message
+    selection = form_json["actions"][0]["selected_options"][0]["value"]
+
+    if selection == "war":
+        message_text = "The only winning move is not to play.\nHow about a nice game of chess?"
+    else:
+        message_text = ":horse:"
+
+    slack_client = SlackClient(SLACK_BOT_TOKEN)
+
+    response = slack_client.api_call(
+        "chat.update",
+        channel=form_json["channel"]["id"],
+        ts=form_json["message_ts"],
+        text=message_text,
+        attachments=[]
+    )
+
+    return make_response("", 200)
+
+
+'''This is for handling the Slack requests'''

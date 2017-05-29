@@ -3,3 +3,4 @@ gunicorn
 pyrebase
 circleclient
 jira
+yaml
