@@ -79,6 +79,22 @@ def loginAccount():
         return 'GET method..' + user
 
 
+@app.route('/content', methods=['POST'])
+def content_display():
+    print(request.headers)
+    if request.headers['Content-Type'] == 'application/json' and request.headers['x-api-key'] == 'aabb123':
+        print(request)
+        # content_json = json.dumps(request.json)
+        category = request.json['LiMSS_PM_Cater_c']
+        task_number = request.json['LiMSS_Task_Number_s__c']
+        return_content = jsonify(
+            {'LiMSS_PM_Cater_c': category, 'LiMSS_Task_Number_s__c': task_number,
+             'LiMSS_Content__c': "Content value here"})
+        return return_content
+    else:
+        return "415 Unsupported Media Type ;)"
+
+
 @app.route('/webhook', methods=['POST', 'GET'])
 def webhookExp():
     webhookaction = getActionFromWebhook(request=request)
