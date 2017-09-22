@@ -82,6 +82,8 @@ def loginAccount():
 @app.route('/content', methods=['POST'])
 def content_display():
     print(request.headers)
+    print(request.headers['Content-Type'])
+    print(request.headers['x-api-key'])
     if request.headers['Content-Type'] == 'application/json' and request.headers['x-api-key'] == 'aabb123':
         print(request)
         content_json = json.dumps(request.json)
