@@ -101,8 +101,8 @@ def content_display():
                 'PRTDocument': 'Some value',
                 'F_ID': 9,
                 'TaskNum': task_number,
-                'Desc': "Content is realted to Machinary coming from rest API",
-                'DescMore': 'More content value need to be added',
+                'Descr': "Content is realted to Machinary coming from rest API",
+                'DescrMore': 'More content value need to be added',
                 'Notes': 'Some Notes can also be added'})
         print(return_content)
         return return_content
