@@ -84,7 +84,7 @@ def content_display():
     print(request.headers)
     print(request.headers['Content-Type'])
     print(request.headers['x-api-key'])
-    if request.headers['Content-Type'] == 'application/json' and request.headers['x-api-key'] == 'aabb123':
+    if 'application/json' in request.headers['Content-Type'] and request.headers['x-api-key'] == 'aabb123':
         print(request)
         content_json = json.dumps(request.json)
         print(content_json)
