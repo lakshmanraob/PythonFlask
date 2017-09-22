@@ -96,7 +96,7 @@ def content_display():
         print(return_content)
         return return_content
     else:
-        return "415 Unsupported Media Type ;)"
+        return "415 Unsupported Media Type"
 
 
 @app.route('/webhook', methods=['POST', 'GET'])
