@@ -92,7 +92,7 @@ def content_display():
         task_number = request.json['LiMSS_Task_Number_s__c']
         return_content = jsonify(
             {'LiMSS_PM_Cater_c': category, 'LiMSS_Task_Number_s__c': task_number,
-             'LiMSS_Content__c': "Content value here"})
+             'LiMSS_Content__c': "Content is coming from the REST API"})
         print(return_content)
         return return_content
     else:
