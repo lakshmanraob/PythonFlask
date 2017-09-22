@@ -79,20 +79,31 @@ def loginAccount():
         return 'GET method..' + user
 
 
-@app.route('/content', methods=['POST'])
+@app.route('/content', methods=['POST', 'GET'])
 def content_display():
     print(request.headers)
     print(request.headers['Content-Type'])
     print(request.headers['x-api-key'])
-    if 'application/json' in request.headers['Content-Type'] and request.headers['x-api-key'] == 'aabb123':
+    if 'application/json' in request.headers['Content-Type'] and request.headers['x-api-key'] == 'Deloitte2017WUSS':
         print(request)
         content_json = json.dumps(request.json)
         print(content_json)
         category = request.json['LiMSS_PM_Cater_c']
         task_number = request.json['LiMSS_Task_Number_s__c']
         return_content = jsonify(
-            {'LiMSS_PM_Cater_c': category, 'LiMSS_Task_Number_s__c': task_number,
-             'LiMSS_Content__c': "Content is coming from the REST API"})
+            {
+                'P_ID': 1,
+                'FileName': 'SOme file name',
+                'Title': 'Machinary Title',
+                'SubTitle': 'Machinary Sub Title',
+                'PMCategory': category,
+                'TaskList': 'T012345',
+                'PRTDocument': 'Some value',
+                'F_ID': 9,
+                'TaskNum': task_number,
+                'Desc': "Content is realted to Machinary coming from rest API",
+                'DescMore': 'More content value need to be added',
+                'Notes': 'Some Notes can also be added'})
         print(return_content)
         return return_content
     else:
