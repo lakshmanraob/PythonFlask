@@ -81,33 +81,68 @@ def loginAccount():
 
 @app.route('/content', methods=['POST', 'GET'])
 def content_display():
-    print(request.headers)
-    print(request.headers['Content-Type'])
-    print(request.headers['x-api-key'])
-    if 'application/json' in request.headers['Content-Type'] and request.headers['x-api-key'] == 'Deloitte2017WUSS':
-        print(request)
-        content_json = json.dumps(request.json)
-        print(content_json)
-        category = request.json['LiMSS_PM_Cater_c']
-        task_number = request.json['LiMSS_Task_Number_s__c']
-        return_content = jsonify(
-            {
-                'P_ID': 1,
-                'FileName': 'SOme file name',
-                'Title': 'Machinary Title',
-                'SubTitle': 'Machinary Sub Title',
-                'PMCategory': category,
-                'TaskList': 'T012345',
-                'PRTDocument': 'Some value',
-                'F_ID': 9,
-                'TaskNum': task_number,
-                'Descr': "Content is realted to Machinary coming from rest API",
-                'DescrMore': 'More content value need to be added',
-                'Notes': 'Some Notes can also be added'})
-        print(return_content)
-        return return_content
+    # print(request.headers)
+    # print(request.headers['Content-Type'])
+    # print(request.headers['x-api-key'])
+    category = 'category'
+    task_number = 'task_number'
+    # print(request.method)
+
+    if request.method == 'POST':
+        if 'application/json' in request.headers['Content-Type'] and request.headers['x-api-key'] == 'Deloitte2017WUSS':
+            print(request)
+            content_json = json.dumps(request.json)
+            print(content_json)
+            category = request.json['LiMSS_PM_Cater_c']
+            task_number = request.json['LiMSS_Task_Number_s__c']
+            return_content = jsonify(
+                {
+                    'P_ID': 1,
+                    'FileName': 'SOme file name',
+                    'Title': 'Machinary Title',
+                    'SubTitle': 'Machinary Sub Title',
+                    'PMCategory': category,
+                    'TaskList': 'T012345',
+                    'PRTDocument': 'Some value',
+                    'F_ID': 9,
+                    'TaskNum': task_number,
+                    'Descr': "Content is realted to Machinary coming from rest API",
+                    'DescrMore': 'More content value need to be added',
+                    'Notes': 'Some Notes can also be added'})
+        else:
+            return_content = jsonify({
+                'reason': 'Invalid Media Type'
+            })
+            return return_content
+    elif request.method == 'GET':
+        if request.headers['Apikey'] == 'Deloitte2017WUSS':
+            category = request.args.get('PMCategory')
+            task_number = request.args.get('TaskNumber')
+            return_content = jsonify(
+                {
+                    'P_ID': 1,
+                    'FileName': 'SOme file name',
+                    'Title': 'Machinary Title',
+                    'SubTitle': 'Machinary Sub Title',
+                    'PMCategory': category,
+                    'TaskList': 'T012345',
+                    'PRTDocument': 'Some value',
+                    'F_ID': 9,
+                    'TaskNum': task_number,
+                    'Descr': "Content is realted to Machinary coming from rest API",
+                    'DescrMore': 'More content value need to be added',
+                    'Notes': 'Some Notes can also be added'})
+        else:
+            return_content = jsonify({
+                'reason': 'Invalid APIKey'
+            })
+            return return_content
     else:
-        return "415 Unsupported Media Type"
+        return_content = jsonify({
+            'reason': 'Method not supported'
+        })
+        return return_content
+    return return_content
 
 
 @app.route('/webhook', methods=['POST', 'GET'])
