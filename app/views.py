@@ -79,6 +79,34 @@ def loginAccount():
         return 'GET method..' + user
 
 
+@app.route('/topplaces', methods=['POST', 'GET'])
+def top_places_details():
+    try:
+        if request.json["payload"]:
+            return cipostaccept()
+    except KeyError as e:
+        buildaction = getActionFromWebhook(request=request)
+        if buildaction == "topplaces.action":
+            return accessGithub()
+        elif buildaction == 'jiradetails.action':
+            return getJiraIssues()
+        elif buildaction == 'ci.action':
+            sessionId = request.json["sessionId"]
+            return accesscircleci(sessionId)
+        return buildaction
+
+
+def topplaces():
+    return_content = jsonify(
+        {
+            'city':'udaipur'
+        }
+    )
+    buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
+                  responseCode=200)
+    return return_content;
+
+
 @app.route('/content', methods=['POST', 'GET'])
 def content_display():
     # print(request.headers)
