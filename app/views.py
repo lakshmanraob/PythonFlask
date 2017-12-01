@@ -155,10 +155,10 @@ def hunger_details():
     messages = '[{"type":0,"speech":"message1"},{"type":0,"speech":"message2"},{"type":0,"speech":"message3"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
     return_content = "Hunger details"
 
-    buildResponseWithMsg(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
+    content = buildResponseWithMsg(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                          messages=messages,
                          responseCode=200)
-    return return_content
+    return content
 
 
 def city_found_details():
@@ -418,7 +418,7 @@ def buildResponse(speech, displayText, source, contextOut, responseCode):
 
 
 def buildResponseWithMsg(speech, displayText, source, contextOut, messages, responseCode):
-    messages = '[{"type":0,"speech":"build server not able to serve your request"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
+    # messages = '[{"type":0,"speech":"build server not able to serve your request"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
     # return jsonify(
     #     {'speech': speech, 'displayText': displayText, 'source': source,
     #      'contextOut': contextOut, 'message': messages}), responseCode
