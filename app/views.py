@@ -86,15 +86,30 @@ def top_places_details():
     print(buildaction)
     if buildaction == "topplaces.action":
        return topplaces()
+    elif buildaction == "hunger.action":
+        return hunger_details()
+    elif buildaction == 'city_found.action':
+        return city_found_details()
     return buildaction
 
-
+# top places details
 def topplaces():
     return_content = "Udaipur response"
     buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                   responseCode=200)
     return return_content
 
+def hunger_details():
+    return_content = "Udaipur Hunger details"
+    buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
+                  responseCode=200)
+    return return_content
+
+def city_found_details():
+    return_content = "none other than Maharana Udai Singh II"
+    buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
+                  responseCode=200)
+    return return_content
 
 @app.route('/content', methods=['POST', 'GET'])
 def content_display():
