@@ -85,20 +85,30 @@ def top_places_details():
     buildaction = getActionFromWebhook(request=request)
     print(buildaction)
     if buildaction == "topplaces.action":
-       return topplaces()
+        return topplaces()
     elif buildaction == "hunger.action":
         return hunger_details()
     elif buildaction == 'city_found.action':
         return city_found_details()
     return buildaction
 
+
 # top places details
 def topplaces():
-    return_content = "udaipur response"
+    return_content = '''
+    That’s exactly i was about to tell you. Here are the best places of udaipur
+        1. City Palace, Distance : 1.0 KM\n
+        2. lake Pichola, Distance : 1.5KMS\n
+        3. jag Mandir, Distance : 2.4KMS\n
+        4. Fatehsagar Lake, Distance : 4.5KMS\n
+        5. Jagdish Temple…
+        Ask me, More Places..
+    '''
 
     content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
-                  responseCode=200)
+                            responseCode=200)
     return content
+
 
 def hunger_details():
     return_content = jsonify({
@@ -108,6 +118,7 @@ def hunger_details():
                   responseCode=200)
     return return_content
 
+
 def city_found_details():
     return_content = jsonify({
         'response': 'none other than me'
@@ -115,6 +126,7 @@ def city_found_details():
     buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                   responseCode=200)
     return return_content
+
 
 @app.route('/content', methods=['POST', 'GET'])
 def content_display():
