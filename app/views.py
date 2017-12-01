@@ -100,7 +100,7 @@ def topplaces(request):
     print(category)
     print(city)
 
-    if city == 'udaipur':
+    if city.lower() == 'udaipur':
         return_content = '''
         That’s exactly i was about to tell you. Here are the best places of udaipur
             1. City Palace, Distance : 1.0 KM\n
@@ -110,7 +110,7 @@ def topplaces(request):
             5. Jagdish Temple…
             Ask me, More Places..
     '''
-    elif city == 'jaipur':
+    elif city.lower() == 'jaipur':
         return_content = '''
         That’s exactly i was about to tell you. Here are the best places of Jaipur
             1. Hawa Mahal, Distance : 4.0 KM\n
@@ -120,7 +120,7 @@ def topplaces(request):
             5. Albert hall Museum, Distance: 3KMS\n
             Ask me, More Places..
         '''
-    elif city == 'Jaisalmer':
+    elif city.lower() == 'Jaisalmer':
         return_content = '''
         That’s exactly i was about to tell you. Here are the best places of Jaisalmer
             1. Jaisalmer Fort, Distance : 1.0 KM\n
