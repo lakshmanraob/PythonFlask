@@ -152,12 +152,18 @@ def get_category_city_name(request):
 
 
 def hunger_details():
-    messages = '[{"type":0,"speech":"message1"},{"type":0,"speech":"message2"},{"type":0,"speech":"message3"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
+    messages = '[{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
     return_content = "Hunger details"
 
-    content = buildResponseWithMsg(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
-                         messages=messages,
-                         responseCode=200)
+    text = '''Awww.. Here are the places for you buddy: 
+        1. Upre , Order Now , Rating : 4.2, Distance : 1.0KM 
+        2. Restaurant Ambrai, No Home Delivery, Rating 4.2, Distance : 2.0KMS 
+        3. Tribute Restaurant, Order Now, Rating : 4.3, Distance : 3.3KMS'''
+
+    content = buildResponseWithMsg(speech=return_content, displayText=return_content, source="lakshman",
+                                   contextOut=None,
+                                   messages=messages,
+                                   responseCode=200)
     return content
 
 
