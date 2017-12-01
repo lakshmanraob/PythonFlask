@@ -100,15 +100,36 @@ def topplaces(request):
     print(category)
     print(city)
 
-    return_content = '''
-    That’s exactly i was about to tell you. Here are the best places of udaipur
-        1. City Palace, Distance : 1.0 KM\n
-        2. lake Pichola, Distance : 1.5KMS\n
-        3. jag Mandir, Distance : 2.4KMS\n
-        4. Fatehsagar Lake, Distance : 4.5KMS\n
-        5. Jagdish Temple…
-        Ask me, More Places..
+    if city == 'udaipur':
+        return_content = '''
+        That’s exactly i was about to tell you. Here are the best places of udaipur
+            1. City Palace, Distance : 1.0 KM\n
+            2. lake Pichola, Distance : 1.5KMS\n
+            3. jag Mandir, Distance : 2.4KMS\n
+            4. Fatehsagar Lake, Distance : 4.5KMS\n
+            5. Jagdish Temple…
+            Ask me, More Places..
     '''
+    elif city == 'jaipur':
+        return_content = '''
+        That’s exactly i was about to tell you. Here are the best places of Jaipur
+            1. Hawa Mahal, Distance : 4.0 KM\n
+            2. City Palace \n
+            3. Amber Fort, Distance : 10KMS\n
+            4. Nahargarh Fort, Distance : 4KMS\n
+            5. Albert hall Museum, Distance: 3KMS\n
+            Ask me, More Places..
+        '''
+    elif city == 'Jaisalmer':
+        return_content = '''
+        That’s exactly i was about to tell you. Here are the best places of Jaisalmer
+            1. Jaisalmer Fort, Distance : 1.0 KM\n
+            2. Desert Safari, Distance : 37KMS \n
+            3. Gadisar Lake, Distance : 2KMS\n
+            4. Jain Temples \n
+            5. Tazia tower and Badal Palace, Distance: 1KM\n
+            Ask me, More Places..
+        '''
 
     content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                             responseCode=200)
