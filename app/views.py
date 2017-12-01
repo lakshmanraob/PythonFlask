@@ -81,19 +81,10 @@ def loginAccount():
 
 @app.route('/topplaces', methods=['POST', 'GET'])
 def top_places_details():
-    try:
-        if request.json["payload"]:
-            return cipostaccept()
-    except KeyError as e:
-        buildaction = getActionFromWebhook(request=request)
-        if buildaction == "topplaces.action":
-            return accessGithub()
-        elif buildaction == 'jiradetails.action':
-            return getJiraIssues()
-        elif buildaction == 'ci.action':
-            sessionId = request.json["sessionId"]
-            return accesscircleci(sessionId)
-        return buildaction
+    buildaction = getActionFromWebhook(request=request)
+    if buildaction == "topplaces.action":
+       return topplaces()
+    return buildaction
 
 
 def topplaces():
