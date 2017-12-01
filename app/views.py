@@ -121,11 +121,11 @@ def get_category_city_name(request):
     contexts = request.json["result"]["contexts"]
 
     for ctx in contexts:
-        if ctx["city_name"]:
-            city_name = ctx["city_name"]
         if ctx["parameters"]:
             if ctx["parameters"]["categories.original"]:
                 category_name = ctx["parameters"]["categories.original"]
+            if ctx["parameters"]["city_name"]:
+                city_name = ctx["parameters"]["city_name"]
 
     return category_name, city_name
 
