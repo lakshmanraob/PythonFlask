@@ -81,7 +81,7 @@ def loginAccount():
 
 @app.route('/topplaces', methods=['POST', 'GET'])
 def top_places_details():
-    print(request)
+    print(request.json)
     buildaction = getActionFromWebhook(request=request)
     print(buildaction)
     if buildaction == "topplaces.action":
@@ -94,19 +94,26 @@ def top_places_details():
 
 # top places details
 def topplaces():
-    return_content = "Udaipur response"
+    return_content = jsonify({
+        'response':'Udaipur response'
+    }
+                             )
     buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                   responseCode=200)
     return return_content
 
 def hunger_details():
-    return_content = "Udaipur Hunger details"
+    return_content = jsonify({
+        'response': 'Udaipur Hunger details'
+    })
     buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                   responseCode=200)
     return return_content
 
 def city_found_details():
-    return_content = "none other than Maharana Udai Singh II"
+    return_content = jsonify({
+        'response': 'none other than me'
+    })
     buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                   responseCode=200)
     return return_content
