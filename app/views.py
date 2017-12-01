@@ -120,7 +120,7 @@ def topplaces(request):
             5. Albert hall Museum, Distance: 3KMS\n
             Ask me, More Places..
         '''
-    elif city.lower() == 'Jaisalmer':
+    elif city.lower() == 'jaisalmer':
         return_content = '''
         That’s exactly i was about to tell you. Here are the best places of Jaisalmer
             1. Jaisalmer Fort, Distance : 1.0 KM\n
