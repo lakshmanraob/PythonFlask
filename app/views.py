@@ -85,7 +85,7 @@ def top_places_details():
     buildaction = getActionFromWebhook(request=request)
     print(buildaction)
     if buildaction == "topplaces.action":
-        return topplaces()
+        return topplaces(request=request)
     elif buildaction == "hunger.action":
         return hunger_details()
     elif buildaction == 'city_found.action':
@@ -94,7 +94,12 @@ def top_places_details():
 
 
 # top places details
-def topplaces():
+def topplaces(request):
+    category, city = get_category_city_name(request)
+
+    print(category)
+    print(city)
+
     return_content = '''
     That’s exactly i was about to tell you. Here are the best places of udaipur
         1. City Palace, Distance : 1.0 KM\n
@@ -108,6 +113,21 @@ def topplaces():
     content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                             responseCode=200)
     return content
+
+
+def get_category_city_name(request):
+    category_name = ""
+    city_name = ""
+    contexts = request.json["result"]["contexts"]
+
+    for ctx in contexts:
+        if ctx["city_name"]:
+            city_name = ctx["city_name"]
+        if ctx["parameters"]:
+            if ctx["parameters"]["categories.original"]:
+                category_name = ctx["parameters"]["categories.original"]
+
+    return category_name, city_name
 
 
 def hunger_details():
