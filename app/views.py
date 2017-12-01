@@ -82,6 +82,7 @@ def loginAccount():
 @app.route('/topplaces', methods=['POST', 'GET'])
 def top_places_details():
     buildaction = getActionFromWebhook(request=request)
+    print(buildaction)
     if buildaction == "topplaces.action":
        return topplaces()
     return buildaction
@@ -91,7 +92,7 @@ def topplaces():
     return_content = "Udaipur response"
     buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                   responseCode=200)
-    return return_content;
+    return return_content
 
 
 @app.route('/content', methods=['POST', 'GET'])
