@@ -81,6 +81,7 @@ def loginAccount():
 
 @app.route('/topplaces', methods=['POST', 'GET'])
 def top_places_details():
+    print(request)
     buildaction = getActionFromWebhook(request=request)
     print(buildaction)
     if buildaction == "topplaces.action":
@@ -262,7 +263,6 @@ def handlebuildDetails():
 
 
 def getActionFromWebhook(request):
-    print(request.json)
     return request.json["result"]["action"]
 
 
