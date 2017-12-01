@@ -152,11 +152,12 @@ def get_category_city_name(request):
 
 
 def hunger_details():
-    return_content = jsonify({
-        'response': 'Udaipur Hunger details'
-    })
-    buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
-                  responseCode=200)
+    messages = '[{"type":0,"speech":"message1"},{"type":0,"speech":"message2"},{"type":0,"speech":"message3"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
+    return_content = "Hunger details"
+
+    buildResponseWithMsg(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
+                         messages=messages,
+                         responseCode=200)
     return return_content
 
 
@@ -413,4 +414,14 @@ def buildResponse(speech, displayText, source, contextOut, responseCode):
     #      'contextOut': contextOut, 'message': messages}), responseCode
     return jsonify(
         {'speech': speech, 'displayText': displayText, 'source': source,
+         'contextOut': contextOut}), responseCode
+
+
+def buildResponseWithMsg(speech, displayText, source, contextOut, messages, responseCode):
+    messages = '[{"type":0,"speech":"build server not able to serve your request"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
+    # return jsonify(
+    #     {'speech': speech, 'displayText': displayText, 'source': source,
+    #      'contextOut': contextOut, 'message': messages}), responseCode
+    return jsonify(
+        {'speech': speech, 'displayText': displayText, 'source': source, 'message': messages,
          'contextOut': contextOut}), responseCode
