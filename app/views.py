@@ -423,5 +423,5 @@ def buildResponseWithMsg(speech, displayText, source, contextOut, messages, resp
     #     {'speech': speech, 'displayText': displayText, 'source': source,
     #      'contextOut': contextOut, 'message': messages}), responseCode
     return jsonify(
-        {'speech': speech, 'displayText': displayText, 'source': source, 'message': messages,
+        {'speech': '', 'displayText': '', 'source': source, 'message': messages,
          'contextOut': contextOut}), responseCode
