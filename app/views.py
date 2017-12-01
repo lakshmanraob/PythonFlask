@@ -261,6 +261,7 @@ def handlebuildDetails():
 
 
 def getActionFromWebhook(request):
+    print(request.json)
     return request.json["result"]["action"]
 
 
