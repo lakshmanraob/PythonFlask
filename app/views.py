@@ -98,9 +98,9 @@ def topplaces():
         'response':'Udaipur response'
     }
                              )
-    buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
+    content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                   responseCode=200)
-    return return_content
+    return content
 
 def hunger_details():
     return_content = jsonify({
