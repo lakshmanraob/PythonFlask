@@ -94,10 +94,8 @@ def top_places_details():
 
 # top places details
 def topplaces():
-    return_content = jsonify({
-        'response':'Udaipur response'
-    }
-                             )
+    return_content = "udaipur response"
+
     content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                   responseCode=200)
     return content
