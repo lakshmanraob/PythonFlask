@@ -101,9 +101,9 @@ def age_details(request):
     if city_name.lower() == 'udaipur':
         return_str = "Good Question, It is 458 Years old as per the records."
     elif city_name.lower() == 'jaipur':
-        return_str = "Good Question, It is 458 Years old as per the records."
+        return_str = "Good Question, Jaipur was built in 1727 AD by Maharaja Sawai Jai Singh II."
     elif city_name.lower() == 'jaisalmer':
-        return_str = "Good Question, It is 458 Years old as per the records."
+        return_str = "Good Question, Jaisalmer founded in 1156AD by Maharawal Jaisal Singh."
     else:
         return_str = "Good Question, i am not aware of it"
 
