@@ -87,7 +87,7 @@ def top_places_details():
     if buildaction == "topplaces.action":
         return topplaces(request=request)
     elif buildaction == "hunger.action":
-        return hunger_details()
+        return hunger_details(request=request)
     elif buildaction == 'city_found.action':
         return city_found_details()
     elif buildaction == 'age.action':
@@ -214,19 +214,42 @@ def get_category_city_name(request):
     return category_name, city_name
 
 
-def hunger_details():
-    messages = '[{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
-    return_content = "Hunger details"
+def hunger_details(request):
+    city_name = get_city_name(request)
 
-    text = '''Awww.. Here are the places for you buddy: 
+    print("hunger details",city_name)
+
+    udaipur_eatery = '''Awww.. Here are the places for you buddy: 
         1. Upre , Order Now , Rating : 4.2, Distance : 1.0KM 
-        2. Restaurant Ambrai, No Home Delivery, Rating 4.2, Distance : 2.0KMS 
+        2. Jhumar Restaurant, Near Fateh Sager lake, No Home Delivery, Rating 4.2, Distance : 2.0KMS 
         3. Tribute Restaurant, Order Now, Rating : 4.3, Distance : 3.3KMS'''
 
-    content = buildResponseWithMsg(speech=return_content, displayText=return_content, source="lakshman",
-                                   contextOut=None,
-                                   messages=messages,
-                                   responseCode=200)
+    jaipur_eatery = '''Awww.. Here are the places for you buddy: 
+            1. MidTown Multicuisine Restaurant , Order Now , Rating : 4.1, Distance : 1.0KM 
+            2. Kalyan Rooftop & Indoor Restaurant, No Home Delivery, Rating 4.5, Distance : 2.0KMS 
+            3. Handi Restaurant, Order Now, Rating : 4.0, Distance : 3.3KMS'''
+
+    jaisalmer_eatery = '''Awww.. Here are the places for you buddy: 
+            1. Cafe the Kaku , Order Now , Rating : 4.4, Distance : 1.0KM 
+            2. Green Park Restaurant, No Home Delivery, Rating 4.4, Distance : 2.0KMS 
+            3. Milan Restaurant, Order Now, Rating : 4.0, Distance : 3.3KMS'''
+
+    if city_name.lower() == 'udaipur':
+        return_str = udaipur_eatery
+    elif city_name.lower() == 'jaipur':
+        return_str = jaipur_eatery
+    elif city_name.lower() == 'jaisalmer':
+        return_str = jaisalmer_eatery
+    else:
+        return_str = "Good Question, i am not aware of it"
+
+    print("return string.",return_str)
+
+    content = buildResponse(speech=return_str, displayText=return_str, source="lakshman", contextOut=None,
+                            responseCode=200)
+
+    print(content)
+
     return content
 
 
