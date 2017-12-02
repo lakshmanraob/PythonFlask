@@ -16,8 +16,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="289" column="62" lean-forward="false" selection-start-line="289" selection-start-column="62" selection-end-line="289" selection-end-column="62" />
+            <state relative-caret-position="244">
+              <caret line="174" column="4" lean-forward="false" selection-start-line="174" selection-start-column="4" selection-end-line="174" selection-end-column="4" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -40,6 +40,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>buildGitResponse</find>
+      <find>topplaces</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -262,7 +263,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/views.py</url>
-          <line>341</line>
+          <line>384</line>
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="1" />
@@ -319,8 +320,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="289" column="62" lean-forward="false" selection-start-line="289" selection-start-column="62" selection-end-line="289" selection-end-column="62" />
+        <state relative-caret-position="244">
+          <caret line="174" column="4" lean-forward="false" selection-start-line="174" selection-start-column="4" selection-end-line="174" selection-end-column="4" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>

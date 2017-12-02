@@ -98,6 +98,8 @@ def top_places_details():
         return suggest_place(request)
     elif buildaction == 'kingpic.action':
         return king_pic_details(request=request)
+    elif buildaction == 'bored.action':
+        return boredDetails(request=request)
     return buildaction
 
 
@@ -169,6 +171,47 @@ def population_details(request):
 
     return content
 
+# top places details
+def boredDetails(request):
+    category, city = get_category_city_name(request)
+
+    print(category)
+    print(city)
+
+    if city.lower() == 'udaipur':
+        return_content = '''
+        i wonder, but still i am going to say visit this places if you really want to enjoy udaipur beauty:
+            1. City Palace, Distance : 1.0 KM\n
+            2. lake Pichola, Distance : 1.5KMS\n
+            3. jag Mandir, Distance : 2.4KMS\n
+            4. Fatehsagar Lake, Distance : 4.5KMS\n
+            5. Jagdish Temple…
+            Ask me, More Places..
+    '''
+    elif city.lower() == 'jaipur':
+        return_content = '''
+        i wonder, but still i am going to say visit this places if you really want to enjoy Jaipur beauty:
+            1. Hawa Mahal, Distance : 4.0 KM\n
+            2. City Palace \n
+            3. Amber Fort, Distance : 10KMS\n
+            4. Nahargarh Fort, Distance : 4KMS\n
+            5. Albert hall Museum, Distance: 3KMS\n
+            Ask me, More Places..
+        '''
+    elif city.lower() == 'jaisalmer':
+        return_content = '''
+        i wonder, but still i am going to say visit this places if you really want to enjoy Jaisalmer beauty:
+            1. Jaisalmer Fort, Distance : 1.0 KM\n
+            2. Desert Safari, Distance : 37KMS \n
+            3. Gadisar Lake, Distance : 2KMS\n
+            4. Jain Temples \n
+            5. Tazia tower and Badal Palace, Distance: 1KM\n
+            Ask me, More Places..
+        '''
+
+    content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
+                            responseCode=200)
+    return content
 
 # top places details
 def topplaces(request):
