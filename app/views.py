@@ -99,11 +99,11 @@ def age_details(request):
     city_name = get_city_name(request)
 
     if city_name.lower() == 'udaipur':
-        return_str = "Good Question, It is 458 Years old as per the records."
+        return_str = "Good Question, It was founded in 1553 AD by Maharana Udai Singh"
     elif city_name.lower() == 'jaipur':
-        return_str = "Good Question, Jaipur was built in 1727 AD by Maharaja Sawai Jai Singh II."
+        return_str = "Good Question, It was built in 1727 AD by Maharaja Sawai Jai Singh II."
     elif city_name.lower() == 'jaisalmer':
-        return_str = "Good Question, Jaisalmer founded in 1156AD by Maharawal Jaisal Singh."
+        return_str = "Good Question, It was founded in 1156 AD by Maharawal Jaisal Singh."
     else:
         return_str = "Good Question, i am not aware of it"
 
@@ -203,12 +203,21 @@ def hunger_details():
 
 
 def city_found_details():
-    return_content = jsonify({
-        'response': 'none other than me'
-    })
-    buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
-                  responseCode=200)
-    return return_content
+    city_name = get_city_name(request)
+
+    if city_name.lower() == 'udaipur':
+        return_str = "Good Question, It was founded in 1553 by Maharana Udai Singh"
+    elif city_name.lower() == 'jaipur':
+        return_str = "Good Question, It was built in 1727 AD by Maharaja Sawai Jai Singh II."
+    elif city_name.lower() == 'jaisalmer':
+        return_str = "Good Question, It was founded in 1156AD by Maharawal Jaisal Singh."
+    else:
+        return_str = "Good Question, i am not aware of it"
+
+    print(return_str)
+    content = buildResponse(speech=return_str, displayText=return_str, source="lakshman", contextOut=None,
+                            responseCode=200)
+    return content
 
 
 @app.route('/content', methods=['POST', 'GET'])
