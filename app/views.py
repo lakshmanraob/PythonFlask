@@ -100,9 +100,8 @@ def top_places_details():
 
 
 def suggest_place(request):
-    category, city = get_category_city_name(request)
+    city = get_city_name(request)
 
-    print(category)
     print(city)
 
     if city.lower() == 'udaipur':
