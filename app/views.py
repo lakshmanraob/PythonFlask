@@ -90,7 +90,26 @@ def top_places_details():
         return hunger_details()
     elif buildaction == 'city_found.action':
         return city_found_details()
+    elif buildaction == 'age.action':
+        return age_details(request)
     return buildaction
+
+
+def age_details(request):
+    city_name = get_city_name(request)
+
+    if city_name.lower() == 'udaipur':
+        return_str = "Good Question, It is 458 Years old as per the records."
+    elif city_name.lower() == 'jaipur':
+        return_str = "Good Question, It is 458 Years old as per the records."
+    elif city_name.lower() == 'jaisalmer':
+        return_str = "Good Question, It is 458 Years old as per the records."
+    else:
+        return_str = "Good Question, i am not aware of it"
+
+    content = buildResponse(speech=return_str, displayText=return_str, source="lakshman", contextOut=None,
+                            responseCode=200)
+    return content
 
 
 # top places details
@@ -134,6 +153,21 @@ def topplaces(request):
     content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                             responseCode=200)
     return content
+
+
+def get_city_name(request):
+    city_name = ""
+    contexts = request.json["result"]["contexts"]
+
+    if request.json["result"]["parameters"]:
+        city_name = request.json["result"]["parameters"]
+    elif contexts:
+        for ctx in contexts:
+            if ctx["parameters"]:
+                if ctx["parameters"]["city_name"]:
+                    city_name = ctx["parameters"]["city_name"]
+
+    return city_name
 
 
 def get_category_city_name(request):
