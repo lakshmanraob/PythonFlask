@@ -140,6 +140,8 @@ def get_greeting():
     else:
         greeting_time = 'Good evening'
 
+    return greeting_time
+
 
 def suggest_place(request):
     city = get_city_name(request)
