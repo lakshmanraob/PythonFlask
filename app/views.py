@@ -122,11 +122,11 @@ def population_details(request):
     print("population..", city_name)
 
     if city_name.lower() == 'udaipur':
-        return_str = "In 2011, udaipur had population of 451,100 and still counting.."
+        return_str = "In 2011, udaipur had population of 451,100 and still counting"
     elif city_name.lower() == 'jaipur':
-        return_str = "In 2011, jaipur had population of 3,046,163 and still counting.."
+        return_str = "In 2011, jaipur had population of 3,046,163 and still counting"
     elif city_name.lower() == 'jaisalmer':
-        return_str = "In 2011, jaisalmer had population of 669,919 and still counting.."
+        return_str = "In 2011, jaisalmer had population of 669,919 and still counting"
     else:
         return_str = "Good Question, i am not aware of it"
 
