@@ -124,7 +124,7 @@ def place_timing_details(request):
     if is_allowed:
         return_content = "yes we can visit " + place_name
     else:
-        return_content = "Sorry not now, visiting hours for" + place_name + "is " + str(place_start) + " - " + str(place_end)
+        return_content = "Sorry not now, visiting hours for " + place_name + " is " + str(place_start) + " - " + str(place_end)
 
     content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                             responseCode=200)
@@ -235,10 +235,10 @@ def get_place_time(request):
 def welcomedetails():
     greeting_time = get_greeting()
 
-    greeting_list = ["Hi Deepak, " + greeting_time, "Hello Deepak, ", greeting_time,
-                     "Hi Deepak, " + greeting_time + " Good to see you,I am your travel guide.",
-                     "Hi Deepak, " + greeting_time + "I am glad to help you. Where would you like to go today?",
-                     "Hi Deepak, " + greeting_time + " Where would you like to go today?"]
+    greeting_list = ["Hi, " + greeting_time, "Hello, ", greeting_time,
+                     "Hi, " + greeting_time + " Good to see you,I am your travel guide.",
+                     "Hi, " + greeting_time + "I am glad to help you. Where would you like to go today?",
+                     "Hi, " + greeting_time + " Where would you like to go today?"]
 
     return_content = greeting_list[random.randint(0, len(greeting_list) - 1)]
 
@@ -338,9 +338,9 @@ def population_details(request):
 
 # top places details
 def boredDetails(request):
-    category, city = get_category_city_name(request)
+    city = get_city_name(request)
 
-    print(category)
+    # print(category)
     print(city)
 
     if city.lower() == 'udaipur':
