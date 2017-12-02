@@ -92,6 +92,8 @@ def top_places_details():
         return city_found_details()
     elif buildaction == 'age.action':
         return age_details(request)
+    elif buildaction == 'population.action':
+        population_details(request)
     return buildaction
 
 
@@ -104,6 +106,23 @@ def age_details(request):
         return_str = "Good Question, It was built in 1727 AD by Maharaja Sawai Jai Singh II."
     elif city_name.lower() == 'jaisalmer':
         return_str = "Good Question, It was founded in 1156 AD by Maharawal Jaisal Singh."
+    else:
+        return_str = "Good Question, i am not aware of it"
+
+    content = buildResponse(speech=return_str, displayText=return_str, source="lakshman", contextOut=None,
+                            responseCode=200)
+    return content
+
+
+def population_details(request):
+    city_name = get_city_name(request)
+
+    if city_name.lower() == 'udaipur':
+        return_str = "In 2011, udaipur had population of 451,100, and still counting.."
+    elif city_name.lower() == 'jaipur':
+        return_str = "In 2011, udaipur had population of 3,046,163, and still counting.."
+    elif city_name.lower() == 'jaisalmer':
+        return_str = "In 2011, udaipur had population of 669,919, and still counting.."
     else:
         return_str = "Good Question, i am not aware of it"
 
