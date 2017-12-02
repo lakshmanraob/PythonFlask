@@ -302,13 +302,13 @@ def city_found_details():
 
 
 def king_pic_details(request):
-    city_name = get_city_name(request)
+    king_name = get_king_name(request)
 
-    if city_name.lower() == 'udaipur':
+    if 'maharana udai singh' in king_name.lower():
         messages = '[{"imageUrl":"https://en.wikipedia.org/wiki/Udai_Singh_II","type":3}]'
-    elif city_name.lower() == 'jaipur':
+    elif 'Maharaja Sawai Jai Singh' in king_name.lower():
         messages = '[{"imageUrl":"https://en.wikipedia.org/wiki/Jai_Singh_II#/media/File:1_Maharaja_Sawai_Jai_Singh_II_ca_1725_Jaipur._British_museum.jpg","type":3}]'
-    elif city_name.lower() == 'jaisalmer':
+    elif "Maharawal Jaisal Singh" in king_name.lower():
         messages = '[{"imageUrl":"https://en.wikipedia.org/wiki/Rawal_Jaisal#/media/File:Jaisalmer_founder.JPG","type":3}]'
     else:
         messages = '[{"type":0,"speech":"Good Question, i am not aware of it"}]'
@@ -318,6 +318,12 @@ def king_pic_details(request):
     content = buildResponseWithMsg(speech="", displayText="", source="lakshman", contextOut=None, messages=messages,
                                    responseCode=200)
     return content
+
+
+def get_king_name(request):
+    king_name = request.json["result"]["parameters"]["kings_entity"]
+
+    return king_name;
 
 
 @app.route('/content', methods=['POST', 'GET'])
