@@ -304,13 +304,13 @@ def city_found_details():
 def king_pic_details(request):
     king_name = get_king_name(request)
 
-    if 'maharana udai singh' in king_name.lower():
+    if 'maharana udai singh'.lower() in king_name.lower():
         return_str = "https://en.wikipedia.org/wiki/Udai_Singh_II"
         messages = '{"imageUrl":"https://en.wikipedia.org/wiki/Udai_Singh_II","type":3}'
-    elif 'Maharaja Sawai Jai Singh' in king_name.lower():
+    elif 'Maharaja Sawai Jai Singh'.lower() in king_name.lower():
         return_str = "https://en.wikipedia.org/wiki/Jai_Singh_II#/media/File:1_Maharaja_Sawai_Jai_Singh_II_ca_1725_Jaipur._British_museum.jpg"
         messages = '{"imageUrl":"https://en.wikipedia.org/wiki/Jai_Singh_II#/media/File:1_Maharaja_Sawai_Jai_Singh_II_ca_1725_Jaipur._British_museum.jpg","type":3}'
-    elif "Maharawal Jaisal Singh" in king_name.lower():
+    elif "Maharawal Jaisal Singh".lower() in king_name.lower():
         return_str = "https://en.wikipedia.org/wiki/Rawal_Jaisal#/media/File:Jaisalmer_founder.JPG"
         messages = '{"imageUrl":"https://en.wikipedia.org/wiki/Rawal_Jaisal#/media/File:Jaisalmer_founder.JPG","type":3}'
     else:
@@ -319,7 +319,7 @@ def king_pic_details(request):
 
     print(messages)
 
-    content = buildResponseWithMsg(speech=return_str, displayText=return_str, source="lakshman", contextOut=None, messages=messages,
+    content = buildResponse(speech=return_str, displayText=return_str, source="lakshman", contextOut=None,
                                    responseCode=200)
     return content
 
