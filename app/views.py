@@ -160,13 +160,14 @@ def get_city_name(request):
     contexts = request.json["result"]["contexts"]
 
     if request.json["result"]["parameters"]:
-        city_name = request.json["result"]["parameters"]
+        city_name = request.json["result"]["parameters"]["city_name"]
     elif contexts:
         for ctx in contexts:
             if ctx["parameters"]:
                 if ctx["parameters"]["city_name"]:
                     city_name = ctx["parameters"]["city_name"]
 
+    print(city_name)
     return city_name
 
 
