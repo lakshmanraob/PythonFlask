@@ -130,9 +130,15 @@ def population_details(request):
     else:
         return_str = "Good Question, i am not aware of it"
 
+    print(return_str)
+
     content = buildResponse(speech=return_str, displayText=return_str, source="lakshman", contextOut=None,
                             responseCode=200)
+
+    print(content)
+
     return content
+
 
 
 # top places details
