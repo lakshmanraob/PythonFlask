@@ -221,6 +221,9 @@ def get_place_time(request):
     place_name = request.json["result"]["parameters"]["places_entity"]
     visit_time = request.json["result"]["parameters"]["time"]
 
+    if not visit_time:
+        visit_time = datetime.datetime.now().strftime("%H:%M:%S")
+
     return place_name, visit_time
 
 
