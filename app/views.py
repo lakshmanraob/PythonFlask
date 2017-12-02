@@ -94,7 +94,34 @@ def top_places_details():
         return age_details(request)
     elif buildaction == 'population.action':
         return population_details(request)
+    elif buildaction == 'suggest.action':
+        return suggest_place(request)
     return buildaction
+
+
+def suggest_place(request):
+    category, city = get_category_city_name(request)
+
+    print(category)
+    print(city)
+
+    if city.lower() == 'udaipur':
+        return_content = '''
+        As i can see you never visited jag Mandir, Go ahead explore this beauty today
+        '''
+    elif city.lower() == 'jaipur':
+        return_content = '''
+        As i can see you never visited Amber Fort, Go ahead explore this beauty today
+        '''
+    elif city.lower() == 'jaisalmer':
+        return_content = '''
+        As i can see you never visited Desert Safari, Go ahead and try out that today
+        '''
+    print(return_content)
+
+    content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
+                            responseCode=200)
+    return content
 
 
 def age_details(request):
@@ -217,7 +244,7 @@ def get_category_city_name(request):
 def hunger_details(request):
     city_name = get_city_name(request)
 
-    print("hunger details",city_name)
+    print("hunger details", city_name)
 
     udaipur_eatery = '''Awww.. Here are the places for you buddy: 
         1. Upre , Order Now , Rating : 4.2, Distance : 1.0KM 
@@ -243,7 +270,7 @@ def hunger_details(request):
     else:
         return_str = "Good Question, i am not aware of it"
 
-    print("return string.",return_str)
+    print("return string.", return_str)
 
     content = buildResponse(speech=return_str, displayText=return_str, source="lakshman", contextOut=None,
                             responseCode=200)
