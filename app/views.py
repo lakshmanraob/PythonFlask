@@ -305,17 +305,21 @@ def king_pic_details(request):
     king_name = get_king_name(request)
 
     if 'maharana udai singh' in king_name.lower():
+        return_str = "Please find " + king_name.lower() + " below"
         messages = '[{"imageUrl":"https://en.wikipedia.org/wiki/Udai_Singh_II","type":3}]'
     elif 'Maharaja Sawai Jai Singh' in king_name.lower():
+        return_str = "Please find " + king_name.lower() + " below"
         messages = '[{"imageUrl":"https://en.wikipedia.org/wiki/Jai_Singh_II#/media/File:1_Maharaja_Sawai_Jai_Singh_II_ca_1725_Jaipur._British_museum.jpg","type":3}]'
     elif "Maharawal Jaisal Singh" in king_name.lower():
+        return_str = "Please find " + king_name.lower() + " below"
         messages = '[{"imageUrl":"https://en.wikipedia.org/wiki/Rawal_Jaisal#/media/File:Jaisalmer_founder.JPG","type":3}]'
     else:
+        return_str = ""
         messages = '[{"type":0,"speech":"Good Question, i am not aware of it"}]'
 
     print(messages)
 
-    content = buildResponseWithMsg(speech="", displayText="", source="lakshman", contextOut=None, messages=messages,
+    content = buildResponseWithMsg(speech=return_str, displayText=return_str, source="lakshman", contextOut=None, messages=messages,
                                    responseCode=200)
     return content
 
