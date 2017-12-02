@@ -490,6 +490,11 @@ def buildResponse(speech, displayText, source, contextOut, responseCode):
     # return jsonify(
     #     {'speech': speech, 'displayText': displayText, 'source': source,
     #      'contextOut': contextOut, 'message': messages}), responseCode
+
+    print(jsonify(
+        {'speech': speech, 'displayText': displayText, 'source': source,
+         'contextOut': contextOut}))
+
     return jsonify(
         {'speech': speech, 'displayText': displayText, 'source': source,
          'contextOut': contextOut}), responseCode
