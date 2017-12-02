@@ -10,6 +10,8 @@ from app.static import jiramodule
 
 import json
 from flask import jsonify
+import datetime
+import random
 
 
 @app.route('/')
@@ -100,7 +102,37 @@ def top_places_details():
         return king_pic_details(request=request)
     elif buildaction == 'bored.action':
         return boredDetails(request=request)
+    elif buildaction == 'input.welcome':
+        return welcomedetails()
     return buildaction
+
+
+def welcomedetails():
+    greeting_time = get_greeting()
+
+    greeting_list = ["Hi Deepak, " + greeting_time, "Hello Deepak, ", greeting_time,
+                     "Hi Deepak, " + greeting_time + " Good to see you,I am your travel guide.",
+                     "Hi Deepak, " + greeting_time + "I am glad to help you. Where would you like to go today?",
+                     "Hi Deepak, " + greeting_time + " Where would you like to go today?"]
+
+    return_content = greeting_list[random.randint(0, len(greeting_list) - 1)]
+
+    print(return_content)
+
+    content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
+                            responseCode=200)
+    return content
+
+
+def get_greeting():
+    currentTime = datetime.datetime.now()
+
+    if currentTime.hour < 12:
+        return 'Good morning'
+    elif 12 <= currentTime.hour < 17:
+        return 'Good afternoon'
+    else:
+        return 'Good evening'
 
 
 def suggest_place(request):
@@ -171,6 +203,7 @@ def population_details(request):
 
     return content
 
+
 # top places details
 def boredDetails(request):
     category, city = get_category_city_name(request)
@@ -212,6 +245,7 @@ def boredDetails(request):
     content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
                             responseCode=200)
     return content
+
 
 # top places details
 def topplaces(request):
@@ -363,7 +397,7 @@ def king_pic_details(request):
     print(messages)
 
     content = buildResponse(speech=return_str, displayText=return_str, source="lakshman", contextOut=None,
-                                   responseCode=200)
+                            responseCode=200)
     return content
 
 
