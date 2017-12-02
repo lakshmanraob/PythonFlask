@@ -100,6 +100,8 @@ def top_places_details():
 def age_details(request):
     city_name = get_city_name(request)
 
+    print("age_details..", city_name)
+
     if city_name.lower() == 'udaipur':
         return_str = "Good Question, It was founded in 1553 AD by Maharana Udai Singh"
     elif city_name.lower() == 'jaipur':
@@ -116,6 +118,8 @@ def age_details(request):
 
 def population_details(request):
     city_name = get_city_name(request)
+
+    print("population..",city_name)
 
     if city_name.lower() == 'udaipur':
         return_str = "In 2011, udaipur had population of 451,100, and still counting.."
