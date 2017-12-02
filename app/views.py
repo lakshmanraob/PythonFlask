@@ -93,7 +93,7 @@ def top_places_details():
     elif buildaction == 'age.action':
         return age_details(request)
     elif buildaction == 'population.action':
-        population_details(request)
+        return population_details(request)
     return buildaction
 
 
