@@ -105,7 +105,120 @@ def top_places_details():
         return boredDetails(request=request)
     elif buildaction == 'input.welcome':
         return welcomedetails()
+    elif buildaction == 'place_visit.action':
+        return place_timing_details(request)
     return buildaction
+
+
+def place_timing_details(request):
+    place_name, visit = get_place_time(request)
+
+    place_start, place_end = get_start_end(place_name=place_name)
+    visit_time = get_time(visit)
+
+    print("place start " + str(place_start))
+    print("place end " + str(place_end))
+
+    is_allowed = time_in_range(place_start, place_end, visit_time)
+
+    if is_allowed:
+        return "yes we can visit " + place_name
+    else:
+        return "Sorry not now, visiting hours for" + place_name + "is " + str(place_start) + " - " + str(place_end)
+
+
+def time_in_range(start, end, x):
+    """Return true if x is in the range [start, end]"""
+    if start <= end:
+        return start <= x <= end
+    else:
+        return start <= x or x <= end
+
+
+def get_time(time):
+    return datetime.time(int(datetime.datetime.strptime(time, "%H:%M:%S").strftime("%H")),
+                         int(datetime.datetime.strptime(time, "%H:%M:%S").strftime("%M")),
+                         int(datetime.datetime.strptime(time, "%H:%M:%S").strftime("%S")))
+
+
+def get_start_end(place_name):
+    visit_details = {
+        "lake pichola": {
+            "start": "9:00",
+            "end": "18:00"
+        },
+        "city palace udaipur": {
+            "start": "9:30",
+            "end": "17:30"
+        },
+        "jag mandir": {
+            "start": "10:00",
+            "end": "18:00"
+        },
+        "fatesagar lake": {
+            "start": "10:00",
+            "end": "17:00"
+        },
+        "hawa mahal": {
+            "start": "9:00",
+            "end": "17:00"
+        },
+        "city palace jaipur": {
+            "start": "9:30",
+            "end": "17:00"
+        },
+        "amber fort": {
+            "start": "8:00",
+            "end": "17:30"
+        },
+        "nahargarh fort": {
+            "start": "10:00",
+            "end": "17:30"
+        },
+        "albert hall museum": {
+            "start": "9:30",
+            "end": "16:30"
+        },
+        "jaisalmer fort": {
+            "start": "9:00",
+            "end": "17:00"
+        },
+        "gadisar lake": {
+            "start": "00:00",
+            "end": "11:59"
+        },
+        "jain temples": {
+            "start": "08:00",
+            "end": "12:00"
+        },
+        "tazia tower and badal palace": {
+            "start": "08:00",
+            "end": "18:00"
+        }
+    }
+
+    startH = int(datetime.datetime.strptime(visit_details[place_name]["start"], "%H:%M").strftime("%H"))
+    startM = int(datetime.datetime.strptime(visit_details[place_name]["start"], "%H:%M").strftime("%M"))
+
+    endH = int(datetime.datetime.strptime(visit_details[place_name]["end"], "%H:%M").strftime("%H"))
+    endM = int(datetime.datetime.strptime(visit_details[place_name]["end"], "%H:%M").strftime("%M"))
+
+    return datetime.time(startH, startM, 0), datetime.time(endH, endM, 0)
+
+
+def time_in_range(start, end, x):
+    """Return true if x is in the range [start, end]"""
+    if start <= end:
+        return start <= x <= end
+    else:
+        return start <= x or x <= end
+
+
+def get_place_time(request):
+    place_name = request.json["result"]["parameters"]["places_entity"]
+    visit_time = request.json["result"]["parameters"]["time"]
+
+    return place_name, visit_time
 
 
 def welcomedetails():
