@@ -117,6 +117,8 @@ def suggest_place(request):
         return_content = '''
         As i can see you never visited Desert Safari, Go ahead and try out that today
         '''
+    else:
+        return_content = '''city was missing to suggest'''
     print(return_content)
 
     content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
