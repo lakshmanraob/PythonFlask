@@ -122,10 +122,13 @@ def place_timing_details(request):
     is_allowed = time_in_range(place_start, place_end, visit_time)
 
     if is_allowed:
-        return "yes we can visit " + place_name
+        return_content = "yes we can visit " + place_name
     else:
-        return "Sorry not now, visiting hours for" + place_name + "is " + str(place_start) + " - " + str(place_end)
+        return_content = "Sorry not now, visiting hours for" + place_name + "is " + str(place_start) + " - " + str(place_end)
 
+    content = buildResponse(speech=return_content, displayText=return_content, source="lakshman", contextOut=None,
+                            responseCode=200)
+    return content
 
 def time_in_range(start, end, x):
     """Return true if x is in the range [start, end]"""
