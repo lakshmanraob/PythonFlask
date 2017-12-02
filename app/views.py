@@ -287,7 +287,7 @@ def city_found_details():
     city_name = get_city_name(request)
 
     if city_name.lower() == 'udaipur':
-        return_str = "Good Question, It was founded in 1553 by Maharana Udai Singh"
+        return_str = "Good Question, It was founded in 1553 AD by Maharana Udai Singh"
     elif city_name.lower() == 'jaipur':
         return_str = "Good Question, It was built in 1727 AD by Maharaja Sawai Jai Singh II."
     elif city_name.lower() == 'jaisalmer':
