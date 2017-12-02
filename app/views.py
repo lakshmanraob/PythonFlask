@@ -119,14 +119,14 @@ def age_details(request):
 def population_details(request):
     city_name = get_city_name(request)
 
-    print("population..",city_name)
+    print("population..", city_name)
 
     if city_name.lower() == 'udaipur':
         return_str = "In 2011, udaipur had population of 451,100 and still counting.."
     elif city_name.lower() == 'jaipur':
-        return_str = "In 2011, udaipur had population of 3,046,163 and still counting.."
+        return_str = "In 2011, jaipur had population of 3,046,163 and still counting.."
     elif city_name.lower() == 'jaisalmer':
-        return_str = "In 2011, udaipur had population of 669,919 and still counting.."
+        return_str = "In 2011, jaisalmer had population of 669,919 and still counting.."
     else:
         return_str = "Good Question, i am not aware of it"
 
@@ -134,10 +134,10 @@ def population_details(request):
 
     content = buildResponse(speech=return_str, displayText=return_str, source="lakshman", contextOut=None,
                             responseCode=200)
+
     print(content)
 
     return content
-
 
 
 # top places details
@@ -491,9 +491,9 @@ def buildResponse(speech, displayText, source, contextOut, responseCode):
     #     {'speech': speech, 'displayText': displayText, 'source': source,
     #      'contextOut': contextOut, 'message': messages}), responseCode
     print("response builder")
-    print(jsonify(
+    print(
         {'speech': speech, 'displayText': displayText, 'source': source,
-         'contextOut': contextOut}))
+         'contextOut': contextOut})
 
     return jsonify(
         {'speech': speech, 'displayText': displayText, 'source': source,
