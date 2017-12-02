@@ -10,8 +10,9 @@ from app.static import jiramodule
 
 import json
 from flask import jsonify
-import datetime
+import datetime, time
 import random
+import os
 
 
 @app.route('/')
@@ -125,14 +126,19 @@ def welcomedetails():
 
 
 def get_greeting():
-    currentTime = datetime.datetime.now()
+    curTime = time.time()
+    os.environ["TZ"] = "Asia/Kolkata"
+    time.tzset()
+    print(time.strftime("%H", time.localtime(curTime)))
 
-    if currentTime.hour < 12:
-        return 'Good morning'
-    elif 12 <= currentTime.hour < 17:
-        return 'Good afternoon'
+    hour = int(time.strftime("%H", time.localtime(curTime)))
+
+    if hour < 12:
+        greeting_time = 'Good morning'
+    elif 12 <= hour < 17:
+        greeting_time = 'Good afternoon'
     else:
-        return 'Good evening'
+        greeting_time = 'Good evening'
 
 
 def suggest_place(request):
