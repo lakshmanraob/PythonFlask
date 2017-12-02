@@ -223,6 +223,7 @@ def get_place_time(request):
 
     if not visit_time:
         visit_time = datetime.datetime.now().strftime("%H:%M:%S")
+        print(visit_time)
 
     return place_name, visit_time
 
