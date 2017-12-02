@@ -222,7 +222,11 @@ def get_place_time(request):
     visit_time = request.json["result"]["parameters"]["time"]
 
     if not visit_time:
-        visit_time = datetime.datetime.now().strftime("%H:%M:%S")
+        curTime = time.time()
+        os.environ["TZ"] = "Asia/Kolkata"
+        time.tzset()
+        print(time.strftime("%H:%M:%S", time.localtime(curTime)))
+        visit_time = time.strftime("%H:%M:%S", time.localtime(curTime))
         print(visit_time)
 
     return place_name, visit_time
