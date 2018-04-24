@@ -90,7 +90,7 @@ def loginAccount():
 
 @app.route("/loginteco", methods=['GET'])
 def loginTeco():
-    return build_login_teco(200)
+    return build_login_util(200)
 
 
 @app.route('/webhook', methods=['POST', 'GET'])
@@ -266,7 +266,7 @@ def getProperty(request, attributeName):
     return request.json["result"][attributeName]
 
 
-def build_login_teco(response_code):
+def build_login_util(response_code):
     messages = '{"d":{"__metadata":{"id":"id","uri":"uri","type":"type"},"Bpart":"Bpart","SsnPwd":"SsnPwd","Message":"Message for you"}}'
 
     return jsonify(messages, response_code)
