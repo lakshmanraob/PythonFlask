@@ -88,6 +88,11 @@ def loginAccount():
         return 'GET method..' + user
 
 
+@app.route("/loginteco", methods=['GET'])
+def loginTeco():
+    return build_login_teco(200)
+
+
 @app.route('/webhook', methods=['POST', 'GET'])
 def webhookExp():
     webhookaction = getActionFromWebhook(request=request)
@@ -259,6 +264,12 @@ def processGitCommitDetails(jsonresult):
 
 def getProperty(request, attributeName):
     return request.json["result"][attributeName]
+
+
+def build_login_teco(response_code):
+    messages = '{"d":{"__metadata":{"id":"id","uri":"uri","type":"type"},"Bpart":"Bpart","SsnPwd":"SsnPwd","Message":"Message for you"}}'
+
+    return jsonify(messages, response_code)
 
 
 def buildGitResponse(speech, displayText, source, contextOut, responseCode):
