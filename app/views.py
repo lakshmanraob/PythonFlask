@@ -110,6 +110,7 @@ def add_complaint():
 
 def build_complaint(request):
     print(request.json)
+    print(request.body)
     message = {
         "d": {
             "__metadata": {
