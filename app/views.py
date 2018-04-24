@@ -110,7 +110,7 @@ def add_complaint():
 
 def build_complaint(request):
     print(request.json)
-    print(request.form.get('sample'))
+    print(request.form.get('Bpart'))
     message = {
         "d": {
             "__metadata": {
@@ -118,7 +118,7 @@ def build_complaint(request):
                 "uri": "uri",
                 "type": "type"
             },
-            "Bpart": "Bpart",
+            "Bpart": request.form.get('Bpart'),
             "SsnPwd": "SsnPwd",
             "Message": "Message for you"
         }
