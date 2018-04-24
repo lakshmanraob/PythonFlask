@@ -89,8 +89,196 @@ def loginAccount():
 
 
 @app.route("/loginteco", methods=['GET'])
-def loginTeco():
+def loginUtil():
     return build_login_util(200)
+
+
+@app.route("/fetchcomplaints", methods=['GET'])
+def fetch_complaints():
+    return build_fetch_complaints()
+
+
+@app.route("/accountdetails", methods=['GET'])
+def get_account_details():
+    return build_account_details()
+
+
+@app.route("/addcomplaint", methods=['POST'])
+def add_complaint():
+    return build_complaint(request=request)
+
+
+def build_complaint(request):
+    print(request)
+    message = {
+        "d": {
+            "__metadata": {
+                "id": "id",
+                "uri": "uri",
+                "type": "type"
+            },
+            "Bpart": "Bpart",
+            "SsnPwd": "SsnPwd",
+            "Message": "Message for you"
+        }
+    }
+
+    return jsonify(message)
+
+
+def build_account_details():
+    message = {
+        "d": {
+            "results": [
+                {
+                    "__metadata": {
+                        "id": "id",
+                        "uri": "uri",
+                        "type": "type"
+                    },
+                    "Bpart": "BPart",
+                    "FirstName": "FirstName",
+                    "LastName": "LastName",
+                    "Dob": "Dob",
+                    "Phone": "Phone",
+                    "Email": "Email",
+                    "Address": "Address"
+                },
+                {
+                    "__metadata": {
+                        "id": "id",
+                        "uri": "uri",
+                        "type": "type"
+                    },
+                    "Bpart": "BPart",
+                    "FirstName": "FirstName",
+                    "LastName": "LastName",
+                    "Dob": "Dob",
+                    "Phone": "Phone",
+                    "Email": "Email",
+                    "Address": "Address"
+                },
+                {
+                    "__metadata": {
+                        "id": "id",
+                        "uri": "uri",
+                        "type": "type"
+                    },
+                    "Bpart": "BPart",
+                    "FirstName": "FirstName",
+                    "LastName": "LastName",
+                    "Dob": "Dob",
+                    "Phone": "Phone",
+                    "Email": "Email",
+                    "Address": "Address"
+                },
+                {
+                    "__metadata": {
+                        "id": "id",
+                        "uri": "uri",
+                        "type": "type"
+                    },
+                    "Bpart": "BPart",
+                    "FirstName": "FirstName",
+                    "LastName": "LastName",
+                    "Dob": "Dob",
+                    "Phone": "Phone",
+                    "Email": "Email",
+                    "Address": "Address"
+                }
+            ],
+            "Bpart": "00001234",
+            "SsnPwd": "1234",
+            "Message": "Message for you"
+        }
+    }
+    return message
+
+
+def build_fetch_complaints():
+    message = {
+        "d": {
+            "results": [
+                {
+                    "__metadata": {
+                        "id": "id",
+                        "uri": "uri",
+                        "type": "type"
+                    },
+                    "Bpart": "BPart",
+                    "OutageType": "OutageType",
+                    "LatiServAdd": "LatiServAdd",
+                    "FromDate": "FromDate",
+                    "IssueDate": "IssueDate",
+                    "LongServAdd": "LongServAdd",
+                    "ToDate": "ToDate",
+                    "IssueStatus": "IssueStatus",
+                    "Qmnum": "Qmnum",
+                    "Qmtxt": "Qmtxt",
+                    "RetMessage": "RetMessage"
+                },
+                {
+                    "__metadata": {
+                        "id": "id",
+                        "uri": "uri",
+                        "type": "type"
+                    },
+                    "Bpart": "BPart",
+                    "OutageType": "OutageType",
+                    "LatiServAdd": "LatiServAdd",
+                    "FromDate": "FromDate",
+                    "IssueDate": "IssueDate",
+                    "LongServAdd": "LongServAdd",
+                    "ToDate": "ToDate",
+                    "IssueStatus": "IssueStatus",
+                    "Qmnum": "Qmnum",
+                    "Qmtxt": "Qmtxt",
+                    "RetMessage": "RetMessage"
+                },
+                {
+                    "__metadata": {
+                        "id": "id",
+                        "uri": "uri",
+                        "type": "type"
+                    },
+                    "Bpart": "BPart",
+                    "OutageType": "OutageType",
+                    "LatiServAdd": "LatiServAdd",
+                    "FromDate": "FromDate",
+                    "IssueDate": "IssueDate",
+                    "LongServAdd": "LongServAdd",
+                    "ToDate": "ToDate",
+                    "IssueStatus": "IssueStatus",
+                    "Qmnum": "Qmnum",
+                    "Qmtxt": "Qmtxt",
+                    "RetMessage": "RetMessage"
+                },
+                {
+                    "__metadata": {
+                        "id": "id",
+                        "uri": "uri",
+                        "type": "type"
+                    },
+                    "Bpart": "BPart",
+                    "OutageType": "OutageType",
+                    "LatiServAdd": "LatiServAdd",
+                    "FromDate": "FromDate",
+                    "IssueDate": "IssueDate",
+                    "LongServAdd": "LongServAdd",
+                    "ToDate": "ToDate",
+                    "IssueStatus": "IssueStatus",
+                    "Qmnum": "Qmnum",
+                    "Qmtxt": "Qmtxt",
+                    "RetMessage": "RetMessage"
+                }
+            ],
+            "Bpart": "00001234",
+            "SsnPwd": "1234",
+            "Message": "Message for you"
+        }
+    }
+
+    return jsonify(message)
 
 
 @app.route('/webhook', methods=['POST', 'GET'])
@@ -267,7 +455,6 @@ def getProperty(request, attributeName):
 
 
 def build_login_util(response_code):
-
     message = {
         "d": {
             "__metadata": {
