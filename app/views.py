@@ -137,13 +137,13 @@ def build_account_details():
                         "uri": "uri",
                         "type": "type"
                     },
-                    "Bpart": "BPart",
-                    "FirstName": "FirstName",
-                    "LastName": "LastName",
-                    "Dob": "Dob",
-                    "Phone": "Phone",
-                    "Email": "Email",
-                    "Address": "Address"
+                    "Bpart": "10000345",
+                    "FirstName": "Gibson",
+                    "LastName": "lawn",
+                    "Dob": "03/11/1981",
+                    "Phone": "+1 12345 345",
+                    "Email": "gibson_lawn@gmail.com",
+                    "Address": "4059 Dolphin Dr Tampa, FL"
                 },
                 {
                     "__metadata": {
@@ -151,13 +151,13 @@ def build_account_details():
                         "uri": "uri",
                         "type": "type"
                     },
-                    "Bpart": "BPart",
-                    "FirstName": "FirstName",
-                    "LastName": "LastName",
-                    "Dob": "Dob",
-                    "Phone": "Phone",
-                    "Email": "Email",
-                    "Address": "Address"
+                    "Bpart": "10000567",
+                    "FirstName": "chris",
+                    "LastName": "Nash",
+                    "Dob": "01/12/1979",
+                    "Phone": "+1 65787 781",
+                    "Email": "chris_nash@gmail.com",
+                    "Address": "203 S Hubert Avenue, Tampa, FL"
                 },
                 {
                     "__metadata": {
@@ -165,13 +165,13 @@ def build_account_details():
                         "uri": "uri",
                         "type": "type"
                     },
-                    "Bpart": "BPart",
-                    "FirstName": "FirstName",
-                    "LastName": "LastName",
-                    "Dob": "Dob",
-                    "Phone": "Phone",
-                    "Email": "Email",
-                    "Address": "Address"
+                    "Bpart": "10000453",
+                    "FirstName": "chris",
+                    "LastName": "hariss",
+                    "Dob": "04/10/1986",
+                    "Phone": "+1 58788 111",
+                    "Email": "chris_hariss@gmail.com",
+                    "Address": "2408 Gordon St, Tampa, FL"
                 },
                 {
                     "__metadata": {
@@ -179,18 +179,18 @@ def build_account_details():
                         "uri": "uri",
                         "type": "type"
                     },
-                    "Bpart": "BPart",
-                    "FirstName": "FirstName",
-                    "LastName": "LastName",
-                    "Dob": "Dob",
-                    "Phone": "Phone",
-                    "Email": "Email",
-                    "Address": "Address"
+                    "Bpart": "1000537",
+                    "FirstName": "archer",
+                    "LastName": "braith",
+                    "Dob": "06/11/1976",
+                    "Phone": "+1 67878 456",
+                    "Email": "archer_braith@gmail.com",
+                    "Address": "1120 E Kennedy BLVD Unit 814, Tampa, FL"
                 }
             ],
             "Bpart": "00001234",
             "SsnPwd": "1234",
-            "Message": "Message for you"
+            "Message": "Account details for you"
         }
     }
     return jsonify(message)
@@ -206,17 +206,17 @@ def build_fetch_complaints():
                         "uri": "uri",
                         "type": "type"
                     },
-                    "Bpart": "BPart",
-                    "OutageType": "OutageType",
-                    "LatiServAdd": "LatiServAdd",
-                    "FromDate": "FromDate",
-                    "IssueDate": "IssueDate",
-                    "LongServAdd": "LongServAdd",
-                    "ToDate": "ToDate",
-                    "IssueStatus": "IssueStatus",
-                    "Qmnum": "Qmnum",
-                    "Qmtxt": "Qmtxt",
-                    "RetMessage": "RetMessage"
+                    "Bpart": "100034",
+                    "OutageType": "ASSG",
+                    "LatiServAdd": "-120.56",
+                    "FromDate": "01/06/2017",
+                    "IssueDate": "05/06/2017",
+                    "LongServAdd": "89.67",
+                    "ToDate": "06/06/2017",
+                    "IssueStatus": "CL",
+                    "Qmnum": "10007782",
+                    "Qmtxt": "resolved",
+                    "RetMessage": "Resolved"
                 },
                 {
                     "__metadata": {
@@ -224,17 +224,17 @@ def build_fetch_complaints():
                         "uri": "uri",
                         "type": "type"
                     },
-                    "Bpart": "BPart",
-                    "OutageType": "OutageType",
-                    "LatiServAdd": "LatiServAdd",
-                    "FromDate": "FromDate",
-                    "IssueDate": "IssueDate",
-                    "LongServAdd": "LongServAdd",
-                    "ToDate": "ToDate",
-                    "IssueStatus": "IssueStatus",
-                    "Qmnum": "Qmnum",
-                    "Qmtxt": "Qmtxt",
-                    "RetMessage": "RetMessage"
+                    "Bpart": "100037",
+                    "OutageType": "CCGI",
+                    "LatiServAdd": "-127.56",
+                    "FromDate": "01/12/2017",
+                    "IssueDate": "05/12/2017",
+                    "LongServAdd": "86.67",
+                    "ToDate": "01/01/2018",
+                    "IssueStatus": "DP",
+                    "Qmnum": "10007752",
+                    "Qmtxt": "waiting",
+                    "RetMessage": "waiting"
                 },
                 {
                     "__metadata": {
@@ -242,17 +242,17 @@ def build_fetch_complaints():
                         "uri": "uri",
                         "type": "type"
                     },
-                    "Bpart": "BPart",
-                    "OutageType": "OutageType",
-                    "LatiServAdd": "LatiServAdd",
-                    "FromDate": "FromDate",
-                    "IssueDate": "IssueDate",
-                    "LongServAdd": "LongServAdd",
-                    "ToDate": "ToDate",
-                    "IssueStatus": "IssueStatus",
-                    "Qmnum": "Qmnum",
-                    "Qmtxt": "Qmtxt",
-                    "RetMessage": "RetMessage"
+                    "Bpart": "100167",
+                    "OutageType": "EXSR",
+                    "LatiServAdd": "-129.56",
+                    "FromDate": "01/03/2018",
+                    "IssueDate": "05/03/2018",
+                    "LongServAdd": "89.67",
+                    "ToDate": "07/03/2018",
+                    "IssueStatus": "EN",
+                    "Qmnum": "10017852",
+                    "Qmtxt": "sample",
+                    "RetMessage": "sample"
                 },
                 {
                     "__metadata": {
@@ -260,17 +260,17 @@ def build_fetch_complaints():
                         "uri": "uri",
                         "type": "type"
                     },
-                    "Bpart": "BPart",
-                    "OutageType": "OutageType",
-                    "LatiServAdd": "LatiServAdd",
-                    "FromDate": "FromDate",
-                    "IssueDate": "IssueDate",
-                    "LongServAdd": "LongServAdd",
-                    "ToDate": "ToDate",
-                    "IssueStatus": "IssueStatus",
-                    "Qmnum": "Qmnum",
-                    "Qmtxt": "Qmtxt",
-                    "RetMessage": "RetMessage"
+                    "Bpart": "100197",
+                    "OutageType": "NPOE",
+                    "LatiServAdd": "-130.56",
+                    "FromDate": "01/02/2018",
+                    "IssueDate": "05/02/2018",
+                    "LongServAdd": "88.67",
+                    "ToDate": "07/02/2018",
+                    "IssueStatus": "AR",
+                    "Qmnum": "10017902",
+                    "Qmtxt": "sample1",
+                    "RetMessage": "sample1"
                 }
             ],
             "Bpart": "00001234",
@@ -463,9 +463,9 @@ def build_login_util(response_code):
                 "uri": "uri",
                 "type": "type"
             },
-            "Bpart": "Bpart",
-            "SsnPwd": "SsnPwd",
-            "Message": "Message for you"
+            "Bpart": "1000014",
+            "SsnPwd": "1234",
+            "Message": "Login message for you"
         }
     }
 
