@@ -88,7 +88,7 @@ def loginAccount():
         return 'GET method..' + user
 
 
-@app.route("/loginteco", methods=['GET'])
+@app.route("/loginutil", methods=['GET'])
 def loginUtil():
     return build_login_util(200)
 
@@ -192,7 +192,7 @@ def build_account_details():
             "Message": "Message for you"
         }
     }
-    return message
+    return jsonify(message)
 
 
 def build_fetch_complaints():
