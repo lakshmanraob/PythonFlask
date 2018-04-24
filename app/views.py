@@ -267,9 +267,21 @@ def getProperty(request, attributeName):
 
 
 def build_login_util(response_code):
-    messages = '{"d":{"__metadata":{"id":"id","uri":"uri","type":"type"},"Bpart":"Bpart","SsnPwd":"SsnPwd","Message":"Message for you"}}'
 
-    return jsonify(messages)
+    message = {
+        "d": {
+            "__metadata": {
+                "id": "id",
+                "uri": "uri",
+                "type": "type"
+            },
+            "Bpart": "Bpart",
+            "SsnPwd": "SsnPwd",
+            "Message": "Message for you"
+        }
+    }
+
+    return jsonify(message)
 
 
 def buildGitResponse(speech, displayText, source, contextOut, responseCode):
