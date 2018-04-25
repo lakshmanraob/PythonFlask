@@ -465,7 +465,7 @@ def build_login_util(response_code):
             },
             "Bpart": "1000014",
             "SsnPwd": "1234",
-            "Message": "Login message for you"
+            "Message": "User Authenticated"
         }
     }
 
